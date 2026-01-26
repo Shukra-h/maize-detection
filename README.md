@@ -3,6 +3,8 @@ AI-powered web application for detecting corn leaf diseases using deep learning.
 
 ## 📋 Features
 
+
+
 - **Real-time Disease Detection** - Upload corn leaf images and get instant predictions
 - **4 Disease Classes Supported**:
   - Cercospora Leaf Spot (Gray Leaf Spot)
@@ -73,18 +75,17 @@ maize-detection/
 
 ### Frontend Setup
 
-1. **Navigate to frontend directory**
+1. **install dependencies from root directory**
    ```in terminal
-   cd ../frontend
-   ```
-
-2. **Install dependencies**
-   ```in terminal
-   npm install
+      npm install
    # or
    yarn install
    ```
 
+2. **Navigate to src directory**
+   ```in terminal
+     cd src
+   ```
 3. **Start development server**
    ```in terminal
    npm run dev
