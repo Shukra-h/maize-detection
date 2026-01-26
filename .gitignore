@@ -22,3 +22,11 @@ venv
 *.njsproj
 *.sln
 *.sw?
+
+venv/
+__pycache__/
+*.pyc
+*.h5
+*.keras
+.DS_Store
+*.log

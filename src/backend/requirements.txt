@@ -1,6 +1,13 @@
-fastapi
-uvicorn
-tensorflow
-pillow
-python-multipart
-numpy
+# FastAPI and server
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.12
+
+# ML/AI
+tensorflow==2.18.0
+keras==3.7.0
+numpy==1.26.4
+pillow==11.0.0
+
+# CORS
+python-dotenv==1.0.1
