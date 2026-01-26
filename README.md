@@ -1,4 +1,3 @@
-# 🌽 Maize Disease Detection System
 
 AI-powered web application for detecting corn leaf diseases using deep learning. Achieves 97.2% accuracy on validation data.
 
@@ -43,7 +42,7 @@ maize-detection/
 
 1. **Clone the repository**
    ```in terminal
-   git clone <your-repo-url>
+   git clone https://github.com/Shukra-h/maize-detection.git
    cd maize-detection/backend
    ```
 
