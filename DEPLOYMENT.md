@@ -8,7 +8,9 @@ Railway is usually the fastest path for a FastAPI + TensorFlow service from this
 1. Push this repo to GitHub.
 2. In Railway: `New Project` -> `Deploy from GitHub Repo`.
 3. Select this repo and set **Root Directory** to `src/api`.
-4. Railway will detect Python and install from `requirements.txt`.
+4. Use the Dockerfile deployment path for deterministic builds:
+   - Railway should auto-detect `src/api/Dockerfile`.
+   - This avoids Railpack/Nixpacks Python-version mismatch issues.
 5. Ensure start command is from `Procfile`:
    - `web: uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}`
 6. Add environment variable:
@@ -26,4 +28,5 @@ Railway is usually the fastest path for a FastAPI + TensorFlow service from this
 - Model path is now deployment-safe and defaults to `src/api/best_model.keras`.
 - If Railway build fails with `No matching distribution found for tensorflow==...`, it means the Python runtime and TensorFlow wheel version do not match.
   - Current backend is pinned to `tensorflow==2.20.0` for broader compatibility.
-  - Alternative: pin Railway Python runtime to 3.11 and keep an older TensorFlow pin.
+  - Runtime hints are included via `src/api/runtime.txt` and `src/api/.python-version`.
+  - Preferred fix: deploy from `src/api/Dockerfile` to lock Python to 3.11.
