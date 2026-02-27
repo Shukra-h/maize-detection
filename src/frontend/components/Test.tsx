@@ -3,7 +3,7 @@ import { Image } from "@chakra-ui/react";
 import { useState } from "react"
 
 // API Configuration
-const API_URL = "http://localhost:8000"; // Your FastAPI backend URL
+const API_URL = "/api/"; // Your FastAPI backend URL
 
 interface PredictionResult {
   success: boolean;
