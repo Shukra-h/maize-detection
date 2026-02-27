@@ -2,17 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/api/main.py",
-      "use": "@vercel/python"
-    },
-    {
       "src": "src/frontend/package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "dist" }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "src/api/main.py" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]

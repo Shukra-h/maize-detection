@@ -26,7 +26,16 @@
     }
   },
   "include": [
-    "src"
+    "main.tsx",
+    "App.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "src/**/*.d.ts",
+    "vite-env.d.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
   ],
   "references": [
     {

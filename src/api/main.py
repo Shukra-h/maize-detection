@@ -14,6 +14,8 @@ from tensorflow import keras
 from io import BytesIO
 import logging
 from typing import Dict, Any
+import os
+from pathlib import Path
 
 # Configure structured logging
 logging.basicConfig(
@@ -23,11 +25,21 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Configuration
+def parse_cors_origins(value: str) -> list:
+    if not value:
+        return ["*"]
+    origins = [item.strip() for item in value.split(",") if item.strip()]
+    return origins or ["*"]
+
+
 class Config:
-    MODEL_PATH = "best_model.keras"  # Use .keras format (Keras 3 native)
+    MODEL_PATH = os.getenv(
+        "MODEL_PATH",
+        str(Path(__file__).resolve().parent / "best_model.keras")
+    )  # Use .keras format (Keras 3 native)
     IMG_SIZE = (224, 224)
     MAX_IMAGE_SIZE_MB = 10
-    CORS_ORIGINS = ["*"]  # In production: specify your frontend domain
+    CORS_ORIGINS = parse_cors_origins(os.getenv("CORS_ORIGINS", "*"))
     
 config = Config()
 
