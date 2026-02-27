@@ -24,3 +24,6 @@ Railway is usually the fastest path for a FastAPI + TensorFlow service from this
 - `src/api/venv/` is excluded from Vercel uploads via `.vercelignore`.
 - API CORS now supports comma-separated origins via `CORS_ORIGINS`.
 - Model path is now deployment-safe and defaults to `src/api/best_model.keras`.
+- If Railway build fails with `No matching distribution found for tensorflow==...`, it means the Python runtime and TensorFlow wheel version do not match.
+  - Current backend is pinned to `tensorflow==2.20.0` for broader compatibility.
+  - Alternative: pin Railway Python runtime to 3.11 and keep an older TensorFlow pin.
