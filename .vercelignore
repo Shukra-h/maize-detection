@@ -1,0 +1,6 @@
+**/venv/
+src/api/venv/
+src/api/__pycache__/
+src/api/*.pyc
+src/api/.pytest_cache/
+src/api/.mypy_cache/

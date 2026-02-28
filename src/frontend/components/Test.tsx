@@ -3,7 +3,7 @@ import { Image } from "@chakra-ui/react";
 import { useState } from "react"
 
 // API Configuration
-const API_URL = "http://localhost:8000"; // Your FastAPI backend URL
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
 interface PredictionResult {
   success: boolean;
