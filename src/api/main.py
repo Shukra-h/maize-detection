@@ -25,10 +25,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Configuration
+def normalize_origin(value: str) -> str:
+    """Normalize env-provided origin values to browser Origin format."""
+    return value.strip().strip('"').strip("'").rstrip("/")
+
+
 def parse_cors_origins(value: str) -> list:
     if not value:
         return ["*"]
-    origins = [item.strip() for item in value.split(",") if item.strip()]
+    origins = [normalize_origin(item) for item in value.split(",") if item.strip()]
     return origins or ["*"]
 
 
@@ -42,6 +47,7 @@ class Config:
     CORS_ORIGINS = parse_cors_origins(os.getenv("CORS_ORIGINS", "*"))
     
 config = Config()
+logger.info(f"CORS origins configured: {config.CORS_ORIGINS}")
 
 # Global state
 class ModelState:
