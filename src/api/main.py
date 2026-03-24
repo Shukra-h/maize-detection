@@ -13,7 +13,7 @@ import tensorflow as tf
 from tensorflow import keras
 from io import BytesIO
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, List, Optional
 import os
 from pathlib import Path
 
@@ -37,6 +37,22 @@ def parse_cors_origins(value: str) -> list:
     return origins or ["*"]
 
 
+def parse_class_names(value: Optional[str]) -> Optional[List[str]]:
+    """Parse optional comma-separated class names from env."""
+    if not value:
+        return None
+    class_names = [item.strip() for item in value.split(",") if item.strip()]
+    return class_names or None
+
+
+DEFAULT_CLASS_NAMES = [
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+    "Corn_(maize)___Common_rust_",
+    "Corn_(maize)___Northern_Leaf_Blight",
+    "Corn_(maize)___healthy",
+]
+
+
 class Config:
     MODEL_PATH = os.getenv(
         "MODEL_PATH",
@@ -45,6 +61,7 @@ class Config:
     IMG_SIZE = (224, 224)
     MAX_IMAGE_SIZE_MB = 10
     CORS_ORIGINS = parse_cors_origins(os.getenv("CORS_ORIGINS", "*"))
+    CLASS_NAMES = parse_class_names(os.getenv("CLASS_NAMES")) or DEFAULT_CLASS_NAMES
     
 config = Config()
 logger.info(f"CORS origins configured: {config.CORS_ORIGINS}")
@@ -74,16 +91,12 @@ async def lifespan(app: FastAPI):
         # Load model using Keras 3 native format
         state.model = keras.models.load_model(config.MODEL_PATH, compile=False)
         
-        # Auto-detect class names from training or define them
-        state.class_names = [
-            "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
-            "Corn_(maize)___Common_rust_",
-            "Corn_(maize)___healthy", 
-            "Corn_(maize)___Northern_Leaf_Blight"
-        ]
+        # This order must exactly match the class index order used during training.
+        state.class_names = config.CLASS_NAMES
         
         logger.info("✓ Model loaded successfully")
         logger.info(f"✓ Classes: {len(state.class_names)}")
+        logger.info(f"✓ Class order: {state.class_names}")
         logger.info(f"✓ TensorFlow version: {tf.__version__}")
         logger.info(f"✓ Keras version: {keras.__version__}")
         logger.info("="*60)

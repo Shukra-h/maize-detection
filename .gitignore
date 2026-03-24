@@ -22,7 +22,7 @@ venv
 *.njsproj
 *.sln
 *.sw?
-
+.env
 venv/
 __pycache__/
 *.pyc
