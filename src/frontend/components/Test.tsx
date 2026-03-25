@@ -325,6 +325,7 @@ const Demo = () => {
           <VStack
             gap={{ base: 4, md: 6 }}
             align="stretch"
+            display={{ base: "contents", lg: "flex" }}
           >
             <VStack
               align="stretch"
@@ -335,6 +336,7 @@ const Demo = () => {
               bg="white"
               borderRadius="xl"
               boxShadow="sm"
+              order={{ base: 1, lg: 0 }}
             >
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
                 1) Upload Leaf Image
@@ -446,6 +448,7 @@ const Demo = () => {
               bg="white"
               borderRadius="xl"
               boxShadow="sm"
+              order={{ base: 3, lg: 0 }}
             >
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
                 3) Treatment and Prevention
@@ -495,7 +498,7 @@ const Demo = () => {
             </VStack>
           </VStack>
 
-          <VStack gap={{ base: 4, md: 6 }} align="stretch">
+          <VStack gap={{ base: 4, md: 6 }} align="stretch" display={{ base: "contents", lg: "flex" }}>
             <VStack
               align="stretch"
               gap={{ base: 3, md: 4 }}
@@ -505,6 +508,7 @@ const Demo = () => {
               bg="white"
               borderRadius="xl"
               boxShadow="sm"
+              order={{ base: 2, lg: 0 }}
             >
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
                 2) Analysis Result
@@ -590,6 +594,7 @@ const Demo = () => {
               bg="white"
               borderRadius="xl"
               boxShadow="sm"
+              order={{ base: 4, lg: 0 }}
             >
               <HStack>
                 <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
