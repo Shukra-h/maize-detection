@@ -18,6 +18,12 @@ interface PredictionResult {
   prediction: string;
   confidence: number;
   all_probabilities: Record<string, number>;
+  guidance?: {
+    title: string;
+    description: string;
+    treatment: string;
+    prevention: string;
+  };
   filename: string;
 }
 
@@ -38,6 +44,13 @@ const CLASS_DETAILS: Record<string, { title: string; description: string }> = {
     title: "Gray Leaf Spot",
     description: "Rectangular gray lesions that often expand along leaf veins.",
   },
+};
+
+const FALLBACK_GUIDANCE = {
+  title: "Recommendation unavailable",
+  description: "A prediction was returned, but disease guidance was not included in the response.",
+  treatment: "Review the result with an agronomist or extension source before taking action.",
+  prevention: "Keep scouting the crop and use local disease management guidance for follow-up decisions.",
 };
 
 const formatClassName = (className: string) =>
@@ -136,6 +149,15 @@ const Demo = () => {
 
   const topLabel = result ? formatClassName(result.prediction) : "";
   const topDetail = topLabel ? CLASS_DETAILS[topLabel] : undefined;
+  const guidance = result?.guidance
+    ? result.guidance
+    : result
+      ? {
+          ...FALLBACK_GUIDANCE,
+          title: topDetail?.title || topLabel || FALLBACK_GUIDANCE.title,
+          description: topDetail?.description || FALLBACK_GUIDANCE.description,
+        }
+      : undefined;
 
   return (
     <Box
@@ -169,6 +191,7 @@ const Demo = () => {
           display="grid"
           gridTemplateColumns={{ base: "1fr", lg: "1.1fr 1fr" }}
           gap={{ base: 4, md: 6 }}
+          alignItems="start"
         >
           <VStack
             align="stretch"
@@ -273,89 +296,148 @@ const Demo = () => {
             )}
           </VStack>
 
-          <VStack
-            align="stretch"
-            gap={{ base: 3, md: 4 }}
-            p={{ base: 3, sm: 4, md: 6 }}
-            border="1px solid"
-            borderColor="blackAlpha.100"
-            bg="white"
-            borderRadius="xl"
-            boxShadow="sm"
-          >
-            <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
-              2) Analysis Result
-            </Text>
+          <VStack gap={{ base: 4, md: 6 }} align="stretch">
+            <VStack
+              align="stretch"
+              gap={{ base: 3, md: 4 }}
+              p={{ base: 3, sm: 4, md: 6 }}
+              border="1px solid"
+              borderColor="blackAlpha.100"
+              bg="white"
+              borderRadius="xl"
+              boxShadow="sm"
+            >
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                2) Analysis Result
+              </Text>
 
-            {!result && !loading && (
-              <Box borderRadius="lg" bg="gray.50" p={5}>
-                <Text fontSize="sm" color="gray.600">
-                  Results will appear here after analysis, including confidence scores for all classes.
-                </Text>
-              </Box>
-            )}
-
-            {result && (
-              <VStack align="stretch" gap={4}>
-                <Box p={4} borderRadius="lg" bg="green.50" border="1px solid" borderColor="green.100">
-                  <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="green.700">
-                    Primary Detection
-                  </Text>
-                  <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
-                    {topDetail?.title || topLabel}
-                  </Text>
-                  <Text mt={2} fontSize="sm" color="gray.700">
-                    {topDetail?.description || "Detected class from the trained maize model."}
-                  </Text>
-                  <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
-                    Confidence: {(result.confidence * 100).toFixed(1)}%
+              {!result && !loading && (
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    Results will appear here after analysis, including confidence scores for all classes.
                   </Text>
                 </Box>
+              )}
 
-                <Box>
-                  <Text fontSize="sm" color="gray.700" mb={2}>
-                    All predictions
-                  </Text>
-                  <VStack gap={2} align="stretch">
-                    {Object.entries(result.all_probabilities)
-                      .sort(([, a], [, b]) => b - a)
-                      .map(([className, probability]) => {
-                        const label = formatClassName(className);
-                        const isTop = className === result.prediction;
-                        const width = `${Math.min(100, Math.max(0, probability * 100)).toFixed(1)}%`;
+              {result && (
+                <VStack align="stretch" gap={4}>
+                  <Box p={4} borderRadius="lg" bg="green.50" border="1px solid" borderColor="green.100">
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="green.700">
+                      Primary Detection
+                    </Text>
+                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
+                      {guidance?.title || topDetail?.title || topLabel}
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700">
+                      {guidance?.description || topDetail?.description || "Detected class from the trained maize model."}
+                    </Text>
+                    <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
+                      Confidence: {(result.confidence * 100).toFixed(1)}%
+                    </Text>
+                  </Box>
 
-                        return (
-                          <Box
-                            key={className}
-                            p={3}
-                            borderRadius="md"
-                            border="1px solid"
-                            borderColor={isTop ? "green.200" : "gray.200"}
-                            bg={isTop ? "green.50" : "gray.50"}
-                          >
-                            <Stack direction={{ base: "column", sm: "row" }} justify="space-between" mb={2} gap={1}>
-                              <Text fontSize="sm" fontWeight={isTop ? "semibold" : "medium"} color="gray.800" lineHeight="1.3">
-                                {label}
-                              </Text>
-                              <Text fontSize="sm" color="gray.700" whiteSpace="nowrap">
-                                {(probability * 100).toFixed(1)}%
-                              </Text>
-                            </Stack>
-                            <Box h="6px" borderRadius="full" bg="gray.200" overflow="hidden">
-                              <Box
-                                h="100%"
-                                borderRadius="full"
-                                bg={isTop ? "green.500" : "blue.400"}
-                                w={width}
-                              />
+                  <Box>
+                    <Text fontSize="sm" color="gray.700" mb={2}>
+                      All predictions
+                    </Text>
+                    <VStack gap={2} align="stretch">
+                      {Object.entries(result.all_probabilities)
+                        .sort(([, a], [, b]) => b - a)
+                        .map(([className, probability]) => {
+                          const label = formatClassName(className);
+                          const isTop = className === result.prediction;
+                          const width = `${Math.min(100, Math.max(0, probability * 100)).toFixed(1)}%`;
+
+                          return (
+                            <Box
+                              key={className}
+                              p={3}
+                              borderRadius="md"
+                              border="1px solid"
+                              borderColor={isTop ? "green.200" : "gray.200"}
+                              bg={isTop ? "green.50" : "gray.50"}
+                            >
+                              <Stack direction={{ base: "column", sm: "row" }} justify="space-between" mb={2} gap={1}>
+                                <Text fontSize="sm" fontWeight={isTop ? "semibold" : "medium"} color="gray.800" lineHeight="1.3">
+                                  {label}
+                                </Text>
+                                <Text fontSize="sm" color="gray.700" whiteSpace="nowrap">
+                                  {(probability * 100).toFixed(1)}%
+                                </Text>
+                              </Stack>
+                              <Box h="6px" borderRadius="full" bg="gray.200" overflow="hidden">
+                                <Box
+                                  h="100%"
+                                  borderRadius="full"
+                                  bg={isTop ? "green.500" : "blue.400"}
+                                  w={width}
+                                />
+                              </Box>
                             </Box>
-                          </Box>
-                        );
-                      })}
-                  </VStack>
+                          );
+                        })}
+                    </VStack>
+                  </Box>
+                </VStack>
+              )}
+            </VStack>
+
+            <VStack
+              align="stretch"
+              gap={{ base: 3, md: 4 }}
+              p={{ base: 3, sm: 4, md: 6 }}
+              border="1px solid"
+              borderColor="blackAlpha.100"
+              bg="white"
+              borderRadius="xl"
+              boxShadow="sm"
+            >
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                3) Treatment and Prevention
+              </Text>
+
+              {!guidance && !loading && (
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    Treatment and prevention guidance will appear here after the image is analyzed.
+                  </Text>
                 </Box>
-              </VStack>
-            )}
+              )}
+
+              {guidance && (
+                <VStack align="stretch" gap={4}>
+                  <Box
+                    p={4}
+                    borderRadius="lg"
+                    bg="orange.50"
+                    border="1px solid"
+                    borderColor="orange.100"
+                  >
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
+                      Treatment
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                      {guidance.treatment}
+                    </Text>
+                  </Box>
+
+                  <Box
+                    p={4}
+                    borderRadius="lg"
+                    bg="blue.50"
+                    border="1px solid"
+                    borderColor="blue.100"
+                  >
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
+                      Prevention
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                      {guidance.prevention}
+                    </Text>
+                  </Box>
+                </VStack>
+              )}
+            </VStack>
           </VStack>
         </Box>
       </VStack>

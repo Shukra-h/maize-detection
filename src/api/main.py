@@ -1,7 +1,3 @@
-"""
-Maize Disease Detection API - Production Ready
-Industry-standard FastAPI implementation for ML model serving
-"""
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,6 +47,79 @@ DEFAULT_CLASS_NAMES = [
     "Corn_(maize)___Northern_Leaf_Blight",
     "Corn_(maize)___healthy",
 ]
+
+DISEASE_GUIDANCE: Dict[str, Dict[str, str]] = {
+    "Corn_(maize)___healthy": {
+        "title": "Healthy Leaf",
+        "description": "No visible signs of major maize leaf disease.",
+        "treatment": (
+            "No treatment is needed right now. Keep scouting the field and "
+            "respond quickly if new lesions or pustules begin to appear."
+        ),
+        "prevention": (
+            "Maintain regular field scouting, choose hybrids with good disease "
+            "resistance for your area, and keep overall crop stress low with "
+            "sound agronomic management."
+        ),
+    },
+    "Corn_(maize)___Northern_Leaf_Blight": {
+        "title": "Northern Leaf Blight",
+        "description": (
+            "Fungal disease with elongated gray-green lesions that reduce yield."
+        ),
+        "treatment": (
+            "Apply a labeled foliar fungicide when disease is active and moving "
+            "up the canopy, especially near tasseling to silking (VT-R1). This "
+            "disease often starts from infected corn residue, so protecting the "
+            "ear leaf and the leaves above it is the main treatment goal."
+        ),
+        "prevention": (
+            "Use hybrids with strong Northern Leaf Blight resistance, including "
+            "partial resistance or suitable Ht-gene resistance where available. "
+            "Rotate away from corn and manage corn residue where practical, "
+            "since the fungus survives in old corn debris and can restart in "
+            "the field the next season."
+        ),
+    },
+    "Corn_(maize)___Common_rust_": {
+        "title": "Common Rust",
+        "description": (
+            "Reddish-brown pustules caused by rust fungi on both leaf surfaces."
+        ),
+        "treatment": (
+            "If rust is increasing early on susceptible corn, apply a labeled "
+            "foliar fungicide while pustules are still limited. Treatment is "
+            "most worthwhile when cool, humid weather is helping the disease "
+            "build and the upper canopy still needs protection."
+        ),
+        "prevention": (
+            "Prioritize resistant hybrids first. Unlike residue-borne leaf "
+            "diseases, crop rotation and residue management are much less useful "
+            "for common rust because spores usually blow in from outside the "
+            "field rather than surviving locally."
+        ),
+    },
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+        "title": "Gray Leaf Spot",
+        "description": (
+            "Rectangular gray lesions that often expand along leaf veins."
+        ),
+        "treatment": (
+            "Apply a labeled foliar fungicide promptly when Gray Leaf Spot is "
+            "active, particularly from tasseling to early silking (VT-R1) in "
+            "humid weather or in fields with a history of the disease. "
+            "Treatment is especially important when lesions are approaching the "
+            "ear leaf and upper canopy."
+        ),
+        "prevention": (
+            "Use resistant hybrids, avoid continuous corn where possible, and "
+            "manage infested corn residue because this disease commonly carries "
+            "over in corn-on-corn systems. Pay extra attention in warm, humid "
+            "fields, since Gray Leaf Spot is strongly favored by long periods "
+            "of moisture and high humidity."
+        ),
+    },
+}
 
 
 class Config:
@@ -302,6 +371,7 @@ async def predict(file: UploadFile = File(...)) -> Dict[str, Any]:
             "prediction": predicted_class,
             "confidence": round(confidence, 4),
             "all_probabilities": all_probabilities,
+            "guidance": DISEASE_GUIDANCE.get(predicted_class),
             "filename": file.filename
         }
         
