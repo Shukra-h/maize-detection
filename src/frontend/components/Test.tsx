@@ -9,22 +9,30 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
+import {
+  deleteDetectionHistoryItem,
+  getDetectionHistory,
+  pruneDetectionHistory,
+  saveDetectionHistoryItem,
+  type DetectionHistoryRecord,
+  type PredictionGuidance,
+} from "./detectionHistory";
 
 const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
+const HISTORY_LIMIT = 20;
 
 interface PredictionResult {
   success: boolean;
   prediction: string;
   confidence: number;
   all_probabilities: Record<string, number>;
-  guidance?: {
-    title: string;
-    description: string;
-    treatment: string;
-    prevention: string;
-  };
+  guidance?: PredictionGuidance;
   filename: string;
+}
+
+interface DetectionHistoryItem extends DetectionHistoryRecord {
+  previewUrl: string;
 }
 
 const CLASS_DETAILS: Record<string, { title: string; description: string }> = {
@@ -53,6 +61,8 @@ const FALLBACK_GUIDANCE = {
   prevention: "Keep scouting the crop and use local disease management guidance for follow-up decisions.",
 };
 
+type ActiveImageSource = "upload" | "history" | null;
+
 const formatClassName = (className: string) =>
   className
     .replace("Corn_(maize)___", "")
@@ -66,25 +76,90 @@ const getConfidenceColor = (confidence: number) => {
   return "red.500";
 };
 
+const createHistoryId = () =>
+  `${Date.now()}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
+
+const formatHistoryTimestamp = (value: string) =>
+  new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(value));
+
+const buildResultFromHistory = (item: DetectionHistoryRecord): PredictionResult => ({
+  success: true,
+  prediction: item.prediction,
+  confidence: item.confidence,
+  all_probabilities: item.all_probabilities,
+  guidance: item.guidance,
+  filename: item.filename,
+});
+
 const Demo = () => {
   const [image, setImage] = useState<File | null>(null);
+  const [previewAsset, setPreviewAsset] = useState<Blob | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [activeImageSource, setActiveImageSource] = useState<ActiveImageSource>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [historyItems, setHistoryItems] = useState<DetectionHistoryItem[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(true);
+  const [historyError, setHistoryError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const historyPreviewUrlsRef = useRef<string[]>([]);
 
   useEffect(() => {
-    if (!image) {
+    if (!previewAsset) {
       setPreviewUrl(null);
       return;
     }
 
-    const objectUrl = URL.createObjectURL(image);
+    const objectUrl = URL.createObjectURL(previewAsset);
     setPreviewUrl(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
-  }, [image]);
+  }, [previewAsset]);
+
+  const applyHistoryRecords = (records: DetectionHistoryRecord[]) => {
+    historyPreviewUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+
+    const nextItems = records.map((record) => ({
+      ...record,
+      previewUrl: URL.createObjectURL(record.imageBlob),
+    }));
+
+    historyPreviewUrlsRef.current = nextItems.map((item) => item.previewUrl);
+    setHistoryItems(nextItems);
+  };
+
+  const loadHistory = useEffectEvent(async () => {
+    setHistoryLoading(true);
+
+    try {
+      const records = await getDetectionHistory();
+      applyHistoryRecords(records);
+      setHistoryError(null);
+    } catch (historyLoadError) {
+      applyHistoryRecords([]);
+      setHistoryError(
+        historyLoadError instanceof Error
+          ? historyLoadError.message
+          : "Detection history is unavailable in this browser.",
+      );
+    } finally {
+      setHistoryLoading(false);
+    }
+  });
+
+  useEffect(() => {
+    void loadHistory();
+
+    return () => {
+      historyPreviewUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+      historyPreviewUrlsRef.current = [];
+    };
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) return;
@@ -96,15 +171,47 @@ const Demo = () => {
     }
 
     setImage(selectedFile);
+    setPreviewAsset(selectedFile);
+    setSelectedFileName(selectedFile.name);
+    setActiveImageSource("upload");
     setResult(null);
     setError(null);
   };
 
   const handleReset = () => {
     setImage(null);
+    setPreviewAsset(null);
+    setSelectedFileName(null);
+    setActiveImageSource(null);
     setResult(null);
     setError(null);
     setLoading(false);
+  };
+
+  const handleHistoryRestore = (item: DetectionHistoryItem) => {
+    setImage(null);
+    setPreviewAsset(item.imageBlob);
+    setSelectedFileName(item.filename);
+    setActiveImageSource("history");
+    setResult(buildResultFromHistory(item));
+    setError(null);
+    setLoading(false);
+  };
+
+  const handleHistoryDelete = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    event.stopPropagation();
+
+    try {
+      await deleteDetectionHistoryItem(id);
+      await loadHistory();
+      setHistoryError(null);
+    } catch (deleteError) {
+      setHistoryError(
+        deleteError instanceof Error
+          ? deleteError.message
+          : "Could not delete this history item.",
+      );
+    }
   };
 
   const handlePredict = async () => {
@@ -139,6 +246,27 @@ const Demo = () => {
 
       const data: PredictionResult = await response.json();
       setResult(data);
+
+      try {
+        await saveDetectionHistoryItem({
+          id: createHistoryId(),
+          createdAt: new Date().toISOString(),
+          filename: image.name,
+          imageBlob: image,
+          prediction: data.prediction,
+          confidence: data.confidence,
+          all_probabilities: data.all_probabilities,
+          guidance: data.guidance,
+        });
+        await pruneDetectionHistory(HISTORY_LIMIT);
+        await loadHistory();
+      } catch (historySaveError) {
+        setHistoryError(
+          historySaveError instanceof Error
+            ? historySaveError.message
+            : "Could not save this detection to local history.",
+        );
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       console.error("Prediction error:", err);
@@ -149,6 +277,7 @@ const Demo = () => {
 
   const topLabel = result ? formatClassName(result.prediction) : "";
   const topDetail = topLabel ? CLASS_DETAILS[topLabel] : undefined;
+  const isHistoryPreview = activeImageSource === "history";
   const guidance = result?.guidance
     ? result.guidance
     : result
@@ -194,106 +323,176 @@ const Demo = () => {
           alignItems="start"
         >
           <VStack
+            gap={{ base: 4, md: 6 }}
             align="stretch"
-            gap={{ base: 3, md: 4 }}
-            p={{ base: 3, sm: 4, md: 6 }}
-            border="1px solid"
-            borderColor="blackAlpha.100"
-            bg="white"
-            borderRadius="xl"
-            boxShadow="sm"
           >
-            <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
-              1) Upload Leaf Image
-            </Text>
-            <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
-              <Button
-                variant="outline"
-                colorScheme="green"
-                borderWidth="2px"
-                onClick={() => fileInputRef.current?.click()}
-                w={{ base: "100%", sm: "auto" }}
-              >
-                Choose File
-              </Button>
-              <Text fontSize="sm" color="gray.600" lineClamp="1" minW={0}>
-                {image?.name || "No file selected"}
-              </Text>
-            </Stack>
-
-            <Box
-              minH={{ base: "220px", sm: "260px", md: "280px" }}
-              borderRadius="lg"
-              border="1px dashed"
-              borderColor="gray.300"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              overflow="hidden"
-              bg="gray.50"
+            <VStack
+              align="stretch"
+              gap={{ base: 3, md: 4 }}
+              p={{ base: 3, sm: 4, md: 6 }}
+              border="1px solid"
+              borderColor="blackAlpha.100"
+              bg="white"
+              borderRadius="xl"
+              boxShadow="sm"
             >
-              {previewUrl ? (
-                <Image
-                  src={previewUrl}
-                  alt="Selected maize leaf"
-                  objectFit="cover"
-                  w="100%"
-                  h="100%"
-                  maxH={{ base: "320px", md: "420px" }}
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                1) Upload Leaf Image
+              </Text>
+              <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
                 />
-              ) : (
-                <Text color="gray.500" fontSize="sm" textAlign="center" px={6}>
-                  A preview will appear here once an image is selected.
+                <Button
+                  variant="outline"
+                  colorScheme="green"
+                  borderWidth="2px"
+                  onClick={() => fileInputRef.current?.click()}
+                  w={{ base: "100%", sm: "auto" }}
+                >
+                  Choose File
+                </Button>
+                <Text fontSize="sm" color="gray.600" lineClamp="1" minW={0}>
+                  {selectedFileName || "No file selected"}
                 </Text>
+              </Stack>
+
+              <Box
+                minH={{ base: "220px", sm: "260px", md: "280px" }}
+                borderRadius="lg"
+                border="1px dashed"
+                borderColor="gray.300"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                overflow="hidden"
+                bg="gray.50"
+              >
+                {previewUrl ? (
+                  <Image
+                    src={previewUrl}
+                    alt="Selected maize leaf"
+                    objectFit="cover"
+                    w="100%"
+                    h="100%"
+                    maxH={{ base: "320px", md: "420px" }}
+                  />
+                ) : (
+                  <Text color="gray.500" fontSize="sm" textAlign="center" px={6}>
+                    A preview will appear here once an image is selected.
+                  </Text>
+                )}
+              </Box>
+
+              <Stack direction={{ base: "column", sm: "row" }} gap={3}>
+                <Button
+                  colorScheme="green"
+                  onClick={handlePredict}
+                  disabled={!image || loading || isHistoryPreview}
+                  loading={loading}
+                  loadingText="Analyzing"
+                  w={{ base: "100%", sm: "auto" }}
+                >
+                  Analyze Image
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleReset}
+                  disabled={!image && !result && !error}
+                  w={{ base: "100%", sm: "auto" }}
+                >
+                  Reset
+                </Button>
+              </Stack>
+
+              {loading && (
+                <HStack gap={2} color="gray.700" align="start">
+                  <Spinner size="sm" color="green.600" />
+                  <Text fontSize="sm" lineHeight="1.4">
+                    Running model inference on the uploaded leaf...
+                  </Text>
+                </HStack>
               )}
-            </Box>
 
-            <Stack direction={{ base: "column", sm: "row" }} gap={3}>
-              <Button
-                colorScheme="green"
-                onClick={handlePredict}
-                disabled={!image || loading}
-                loading={loading}
-                loadingText="Analyzing"
-                w={{ base: "100%", sm: "auto" }}
-              >
-                Analyze Image
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleReset}
-                disabled={!image && !result && !error}
-                w={{ base: "100%", sm: "auto" }}
-              >
-                Reset
-              </Button>
-            </Stack>
+              {isHistoryPreview && !loading && (
+                <Box borderRadius="md" bg="orange.50" border="1px solid" borderColor="orange.100" p={3}>
+                  <Text fontSize="sm" color="gray.700" lineHeight="1.5">
+                    This image was restored from detection history. Choose a new file to analyze another image.
+                  </Text>
+                </Box>
+              )}
 
-            {loading && (
-              <HStack gap={2} color="gray.700" align="start">
-                <Spinner size="sm" color="green.600" />
-                <Text fontSize="sm" lineHeight="1.4">
-                  Running model inference on the uploaded leaf...
-                </Text>
-              </HStack>
-            )}
+              {error && (
+                <Alert.Root status="error" borderRadius="md">
+                  <Alert.Indicator />
+                  <Alert.Content>
+                    <Alert.Title>Prediction failed</Alert.Title>
+                    <Alert.Description>{error}</Alert.Description>
+                  </Alert.Content>
+                </Alert.Root>
+              )}
+            </VStack>
 
-            {error && (
-              <Alert.Root status="error" borderRadius="md">
-                <Alert.Indicator />
-                <Alert.Content>
-                  <Alert.Title>Prediction failed</Alert.Title>
-                  <Alert.Description>{error}</Alert.Description>
-                </Alert.Content>
-              </Alert.Root>
-            )}
+            <VStack
+              align="stretch"
+              gap={{ base: 3, md: 4 }}
+              p={{ base: 3, sm: 4, md: 6 }}
+              border="1px solid"
+              borderColor="blackAlpha.100"
+              bg="white"
+              borderRadius="xl"
+              boxShadow="sm"
+            >
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                3) Treatment and Prevention
+              </Text>
+
+              {!guidance && !loading && (
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    Treatment and prevention guidance will appear here after the image is analyzed.
+                  </Text>
+                </Box>
+              )}
+
+              {guidance && (
+                <VStack align="stretch" gap={4}>
+                  <Box
+                    p={4}
+                    borderRadius="lg"
+                    bg="orange.50"
+                    border="1px solid"
+                    borderColor="orange.100"
+                  >
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
+                      Treatment
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                      {guidance.treatment}
+                    </Text>
+                  </Box>
+
+                  <Box
+                    p={4}
+                    borderRadius="lg"
+                    bg="blue.50"
+                    border="1px solid"
+                    borderColor="blue.100"
+                  >
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
+                      Prevention
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                      {guidance.prevention}
+                    </Text>
+                  </Box>
+                </VStack>
+              )}
+            </VStack>
           </VStack>
 
           <VStack gap={{ base: 4, md: 6 }} align="stretch">
@@ -392,50 +591,147 @@ const Demo = () => {
               borderRadius="xl"
               boxShadow="sm"
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
-                3) Treatment and Prevention
-              </Text>
+              <HStack>
+                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                  4) Detection History 
+                </Text>
+                <span><Text fontWeight={"extralight"} fontSize={"xs"}>(Click item to view history)</Text></span>
+              </HStack>
+              {historyItems.length > 0 && (
+                <Text fontSize={{ base: "sm", md: "md" }} as="span" fontWeight="light">{historyItems.length} items</Text>
+              )}
 
-              {!guidance && !loading && (
+              {historyLoading && (
+                <HStack gap={2} color="gray.700" align="start">
+                  <Spinner size="sm" color="green.600" />
+                  <Text fontSize="sm" lineHeight="1.4">
+                    Loading previous detections...
+                  </Text>
+                </HStack>
+              )}
+
+              {historyError && (
+                <Alert.Root status="warning" borderRadius="md">
+                  <Alert.Indicator />
+                  <Alert.Content>
+                    <Alert.Title>History unavailable</Alert.Title>
+                    <Alert.Description>{historyError}</Alert.Description>
+                  </Alert.Content>
+                </Alert.Root>
+              )}
+
+              {!historyLoading && !historyItems.length && !historyError && (
                 <Box borderRadius="lg" bg="gray.50" p={5}>
                   <Text fontSize="sm" color="gray.600">
-                    Treatment and prevention guidance will appear here after the image is analyzed.
+                    Successful detections will be saved here so you can reopen them later.
                   </Text>
                 </Box>
               )}
 
-              {guidance && (
-                <VStack align="stretch" gap={4}>
-                  <Box
-                    p={4}
-                    borderRadius="lg"
-                    bg="orange.50"
-                    border="1px solid"
-                    borderColor="orange.100"
-                  >
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
-                      Treatment
-                    </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
-                      {guidance.treatment}
-                    </Text>
-                  </Box>
+              {!historyLoading && historyItems.length > 0 && (
+                <Box
+                  maxH={historyItems.length > 3 ? { base: "480px", md: "540px" } : "none"}
+                  overflowY={historyItems.length > 3 ? "auto" : "visible"}
+                  pr={historyItems.length > 3 ? { base: 2, md: 4 } : 0}
+                >
+                  <VStack align="stretch" gap={3}>
+                    {historyItems.map((item) => {
+                      const title = item.guidance?.title || formatClassName(item.prediction);
 
-                  <Box
-                    p={4}
-                    borderRadius="lg"
-                    bg="blue.50"
-                    border="1px solid"
-                    borderColor="blue.100"
-                  >
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
-                      Prevention
-                    </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
-                      {guidance.prevention}
-                    </Text>
-                  </Box>
-                </VStack>
+                      return (
+                        <Box
+                          key={item.id}
+                          textAlign="left"
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => handleHistoryRestore(item)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter" || event.key === " ") {
+                              event.preventDefault();
+                              handleHistoryRestore(item);
+                            }
+                          }}
+                          p={3}
+                          borderRadius="lg"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          bg="gray.50"
+                          cursor="pointer"
+                          transition="all 0.2s ease"
+                          _hover={{ borderColor: "green.200", bg: "white" }}
+                        >
+                          <Stack direction="row" gap={3} align="start">
+                            <Box
+                              flexShrink={0}
+                              w={{ base: "76px", sm: "92px" }}
+                              h={{ base: "76px", sm: "92px" }}
+                              borderRadius="md"
+                              overflow="hidden"
+                              bg="gray.100"
+                              border="1px solid"
+                              borderColor="gray.200"
+                            >
+                              <Image
+                                src={item.previewUrl}
+                                alt={item.filename}
+                                objectFit="cover"
+                                w="100%"
+                                h="100%"
+                              />
+                            </Box>
+
+                            <Box flex="1" minW={0}>
+                              <Stack direction={{ base: "column", sm: "row" }} justify="space-between" align={{ base: "stretch", sm: "start" }} gap={2}>
+                                <Box minW={0}>
+                                  <Text fontSize="sm" fontWeight="semibold" color="gray.900">
+                                    {title}
+                                  </Text>
+                                  <Text mt={1} fontSize="xs" color="gray.500" lineClamp={1}>
+                                    {item.filename}
+                                  </Text>
+                                </Box>
+
+                                <Stack
+                                  direction={{ base: "row", sm: "column" }}
+                                  align={{ base: "center", sm: "end" }}
+                                  justify={{ base: "space-between", sm: "start" }}
+                                  gap={2}
+                                  flexShrink={0}
+                                  w={{ base: "100%", sm: "auto" }}
+                                >
+                                  <Text
+                                    fontSize="xs"
+                                    color="gray.500"
+                                    whiteSpace={{ base: "normal", sm: "nowrap" }}
+                                    textAlign={{ base: "left", sm: "right" }}
+                                  >
+                                    {formatHistoryTimestamp(item.createdAt)}
+                                  </Text>
+                                  <Button
+                                    size="xs"
+                                    variant="outline"
+                                    colorScheme="red"
+                                    onClick={(event) => handleHistoryDelete(event, item.id)}
+                                  >
+                                    Delete
+                                  </Button>
+                                </Stack>
+                              </Stack>
+
+                              <Text mt={2} fontSize="sm" color={getConfidenceColor(item.confidence)} fontWeight="semibold">
+                                Confidence: {(item.confidence * 100).toFixed(1)}%
+                              </Text>
+
+                              <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.5" lineClamp={3}>
+                                {item.guidance?.treatment || FALLBACK_GUIDANCE.treatment}
+                              </Text>
+                            </Box>
+                          </Stack>
+                        </Box>
+                      );
+                    })}
+                  </VStack>
+                </Box>
               )}
             </VStack>
           </VStack>
