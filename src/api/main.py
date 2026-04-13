@@ -21,7 +21,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-REPO_ROOT = Path(__file__).resolve().parents[2]
+APP_ROOT = Path(__file__).resolve().parent
 
 # Configuration
 def normalize_origin(value: str) -> str:
@@ -51,7 +51,7 @@ def load_class_names_file(path_value: Optional[str]) -> Optional[List[str]]:
 
     path = Path(path_value)
     if not path.is_absolute():
-        path = REPO_ROOT / path
+        path = APP_ROOT / path
 
     if not path.exists():
         logger.warning("Class names file does not exist: %s", path)
