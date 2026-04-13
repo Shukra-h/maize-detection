@@ -29,3 +29,13 @@ __pycache__/
 *.h5
 .DS_Store
 *.log
+Dataset Folder
+scripts
+trainig script.md
+.venv
+.venv-train
+.cache
+artifacts
+.matplotlib
+training_runs
+local_training_runs

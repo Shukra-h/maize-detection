@@ -5,12 +5,16 @@ export interface PredictionGuidance {
   prevention: string;
 }
 
+export type PredictionDecision = "accepted" | "likely" | "rejected";
+
 export interface DetectionHistoryRecord {
   id: string;
   createdAt: string;
   filename: string;
   imageBlob: Blob;
   prediction: string;
+  model_prediction?: string;
+  decision?: PredictionDecision;
   confidence: number;
   all_probabilities: Record<string, number>;
   guidance?: PredictionGuidance;
