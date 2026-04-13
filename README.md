@@ -13,6 +13,8 @@ Upload a photo of a maize leaf and the app will predict one of these classes:
 - Northern Leaf Blight
 - Healthy Leaf
 
+If the image is not a confident match for the trained maize classes, the backend can reject it instead of forcing a disease label.
+
 The project has two parts:
 
 - `src/frontend` - the website users interact with
@@ -23,6 +25,7 @@ The project has two parts:
 - Frontend: React + TypeScript + Vite + Chakra UI
 - Backend: FastAPI + TensorFlow + Keras
 - Model file: `src/api/best_model.keras`
+- Class order file: `src/api/class_names.json`
 
 ## Before you start
 
@@ -173,6 +176,7 @@ The frontend should open in your browser automatically. If it does not, open the
 2. Upload a maize leaf image.
 3. Wait for the prediction result.
 4. Review the confidence score and disease guidance.
+5. If the image is unclear or out of scope, the backend may return a rejection instead of a disease class.
 
 ## How the frontend connects to the backend
 
@@ -200,7 +204,8 @@ maize-detection/
 │   ├── api/
 │   │   ├── main.py
 │   │   ├── requirements.txt
-│   │   └── best_model.keras
+│   │   ├── best_model.keras
+│   │   └── class_names.json
 │   └── frontend/
 │       ├── package.json
 │       ├── main.tsx

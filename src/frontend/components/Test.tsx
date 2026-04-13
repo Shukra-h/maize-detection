@@ -16,6 +16,7 @@ import {
   pruneDetectionHistory,
   saveDetectionHistoryItem,
   type DetectionHistoryRecord,
+  type PredictionDecision,
   type PredictionGuidance,
 } from "./detectionHistory";
 
@@ -25,6 +26,8 @@ const HISTORY_LIMIT = 20;
 interface PredictionResult {
   success: boolean;
   prediction: string;
+  model_prediction?: string;
+  decision?: PredictionDecision;
   confidence: number;
   all_probabilities: Record<string, number>;
   guidance?: PredictionGuidance;
@@ -76,6 +79,46 @@ const getConfidenceColor = (confidence: number) => {
   return "red.500";
 };
 
+const inferDecision = (result: Pick<PredictionResult, "decision" | "guidance">): PredictionDecision => {
+  if (result.decision) {
+    return result.decision;
+  }
+  return result.guidance?.title === "Image Rejected" ? "rejected" : "accepted";
+};
+
+const getDecisionTheme = (decision: PredictionDecision) => {
+  if (decision === "likely") {
+    return {
+      bannerLabel: "Likely Detection",
+      statusText: "Most likely match based on the model output.",
+      bg: "orange.50",
+      border: "orange.100",
+      accent: "orange.700",
+      highlight: "orange.500",
+    };
+  }
+
+  if (decision === "rejected") {
+    return {
+      bannerLabel: "Image Review Needed",
+      statusText: "The model did not meet the confidence rule for a usable maize diagnosis.",
+      bg: "red.50",
+      border: "red.100",
+      accent: "red.700",
+      highlight: "red.500",
+    };
+  }
+
+  return {
+    bannerLabel: "Primary Detection",
+    statusText: "The model met the strict confidence rule for this diagnosis.",
+    bg: "green.50",
+    border: "green.100",
+    accent: "green.700",
+    highlight: "green.500",
+  };
+};
+
 const createHistoryId = () =>
   `${Date.now()}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 
@@ -88,6 +131,8 @@ const formatHistoryTimestamp = (value: string) =>
 const buildResultFromHistory = (item: DetectionHistoryRecord): PredictionResult => ({
   success: true,
   prediction: item.prediction,
+  model_prediction: item.model_prediction,
+  decision: item.decision,
   confidence: item.confidence,
   all_probabilities: item.all_probabilities,
   guidance: item.guidance,
@@ -254,6 +299,8 @@ const Demo = () => {
           filename: image.name,
           imageBlob: image,
           prediction: data.prediction,
+          model_prediction: data.model_prediction,
+          decision: data.decision,
           confidence: data.confidence,
           all_probabilities: data.all_probabilities,
           guidance: data.guidance,
@@ -275,7 +322,10 @@ const Demo = () => {
     }
   };
 
-  const topLabel = result ? formatClassName(result.prediction) : "";
+  const decision = result ? inferDecision(result) : "accepted";
+  const decisionTheme = getDecisionTheme(decision);
+  const topClassName = result ? result.model_prediction ?? result.prediction : "";
+  const topLabel = topClassName ? formatClassName(topClassName) : "";
   const topDetail = topLabel ? CLASS_DETAILS[topLabel] : undefined;
   const isHistoryPreview = activeImageSource === "history";
   const guidance = result?.guidance
@@ -524,15 +574,18 @@ const Demo = () => {
 
               {result && (
                 <VStack align="stretch" gap={4}>
-                  <Box p={4} borderRadius="lg" bg="green.50" border="1px solid" borderColor="green.100">
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="green.700">
-                      Primary Detection
+                  <Box p={4} borderRadius="lg" bg={decisionTheme.bg} border="1px solid" borderColor={decisionTheme.border}>
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color={decisionTheme.accent}>
+                      {decisionTheme.bannerLabel}
                     </Text>
                     <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
                       {guidance?.title || topDetail?.title || topLabel}
                     </Text>
                     <Text mt={2} fontSize="sm" color="gray.700">
                       {guidance?.description || topDetail?.description || "Detected class from the trained maize model."}
+                    </Text>
+                    <Text mt={2} fontSize="sm" color="gray.700">
+                      {decisionTheme.statusText}
                     </Text>
                     <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
                       Confidence: {(result.confidence * 100).toFixed(1)}%
@@ -548,7 +601,7 @@ const Demo = () => {
                         .sort(([, a], [, b]) => b - a)
                         .map(([className, probability]) => {
                           const label = formatClassName(className);
-                          const isTop = className === result.prediction;
+                          const isTop = className === topClassName;
                           const width = `${Math.min(100, Math.max(0, probability * 100)).toFixed(1)}%`;
 
                           return (
@@ -572,7 +625,7 @@ const Demo = () => {
                                 <Box
                                   h="100%"
                                   borderRadius="full"
-                                  bg={isTop ? "green.500" : "blue.400"}
+                                  bg={isTop ? decisionTheme.highlight : "blue.400"}
                                   w={width}
                                 />
                               </Box>
@@ -641,7 +694,7 @@ const Demo = () => {
                 >
                   <VStack align="stretch" gap={3}>
                     {historyItems.map((item) => {
-                      const title = item.guidance?.title || formatClassName(item.prediction);
+                      const title = item.guidance?.title || formatClassName(item.model_prediction ?? item.prediction);
 
                       return (
                         <Box
