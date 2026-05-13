@@ -16,9 +16,15 @@ import {
   pruneDetectionHistory,
   saveDetectionHistoryItem,
   type DetectionHistoryRecord,
-  type PredictionDecision,
   type PredictionGuidance,
 } from "./detectionHistory";
+import {
+  getDiseaseDetails,
+  getFallbackGuidance,
+  translateClassLabel,
+  translateGuidance,
+  useI18n,
+} from "./i18n";
 
 const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 const HISTORY_LIMIT = 20;
@@ -26,43 +32,15 @@ const HISTORY_LIMIT = 20;
 interface PredictionResult {
   success: boolean;
   prediction: string;
-  model_prediction?: string;
-  decision?: PredictionDecision;
   confidence: number;
   all_probabilities: Record<string, number>;
   guidance?: PredictionGuidance;
   filename: string;
 }
-  
+
 interface DetectionHistoryItem extends DetectionHistoryRecord {
   previewUrl: string;
 }
-
-const CLASS_DETAILS: Record<string, { title: string; description: string }> = {
-  healthy: {
-    title: "Healthy Leaf",
-    description: "No visible signs of major maize leaf disease.",
-  },
-  "Northern Leaf Blight": {
-    title: "Northern Leaf Blight",
-    description: "Fungal disease with elongated gray-green lesions that reduce yield.",
-  },
-  "Common rust": {
-    title: "Common Rust",
-    description: "Reddish-brown pustules caused by rust fungi on both leaf surfaces.",
-  },
-  "Cercospora leaf spot Gray Leaf Spot": {
-    title: "Gray Leaf Spot",
-    description: "Rectangular gray lesions that often expand along leaf veins.",
-  },
-};
-
-const FALLBACK_GUIDANCE = {
-  title: "Recommendation unavailable",
-  description: "A prediction was returned, but disease guidance was not included in the response.",
-  treatment: "Review the result with an agronomist or extension source before taking action.",
-  prevention: "Keep scouting the crop and use local disease management guidance for follow-up decisions.",
-};
 
 type ActiveImageSource = "upload" | "history" | null;
 
@@ -79,60 +57,12 @@ const getConfidenceColor = (confidence: number) => {
   return "red.500";
 };
 
-const inferDecision = (result: Pick<PredictionResult, "decision" | "guidance">): PredictionDecision => {
-  if (result.decision) {
-    return result.decision;
-  }
-  return result.guidance?.title === "Image Rejected" ? "rejected" : "accepted";
-};
-
-const getDecisionTheme = (decision: PredictionDecision) => {
-  if (decision === "likely") {
-    return {
-      bannerLabel: "Likely Detection",
-      statusText: "Most likely match based on the model output.",
-      bg: "orange.50",
-      border: "orange.100",
-      accent: "orange.700",
-      highlight: "orange.500",
-    };
-  }
-
-  if (decision === "rejected") {
-    return {
-      bannerLabel: "Image Review Needed",
-      statusText: "The model did not meet the confidence rule for a usable maize diagnosis.",
-      bg: "red.50",
-      border: "red.100",
-      accent: "red.700",
-      highlight: "red.500",
-    };
-  }
-
-  return {
-    bannerLabel: "Primary Detection",
-    statusText: "The model met the strict confidence rule for this diagnosis.",
-    bg: "green.50",
-    border: "green.100",
-    accent: "green.700",
-    highlight: "green.500",
-  };
-};
-
 const createHistoryId = () =>
   `${Date.now()}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
-
-const formatHistoryTimestamp = (value: string) =>
-  new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(value));
 
 const buildResultFromHistory = (item: DetectionHistoryRecord): PredictionResult => ({
   success: true,
   prediction: item.prediction,
-  model_prediction: item.model_prediction,
-  decision: item.decision,
   confidence: item.confidence,
   all_probabilities: item.all_probabilities,
   guidance: item.guidance,
@@ -140,6 +70,7 @@ const buildResultFromHistory = (item: DetectionHistoryRecord): PredictionResult 
 });
 
 const Demo = () => {
+  const { language, t, formatDateTime } = useI18n();
   const [image, setImage] = useState<File | null>(null);
   const [previewAsset, setPreviewAsset] = useState<Blob | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -190,7 +121,7 @@ const Demo = () => {
       setHistoryError(
         historyLoadError instanceof Error
           ? historyLoadError.message
-          : "Detection history is unavailable in this browser.",
+          : t("detector.errorHistoryLoad"),
       );
     } finally {
       setHistoryLoading(false);
@@ -211,7 +142,7 @@ const Demo = () => {
 
     const selectedFile = e.target.files[0];
     if (!selectedFile.type.startsWith("image/")) {
-      setError("Please upload a valid image file.");
+      setError(t("detector.errorInvalidImage"));
       return;
     }
 
@@ -254,14 +185,14 @@ const Demo = () => {
       setHistoryError(
         deleteError instanceof Error
           ? deleteError.message
-          : "Could not delete this history item.",
+          : t("detector.errorHistoryDelete"),
       );
     }
   };
 
   const handlePredict = async () => {
     if (!image) {
-      setError("Please select an image first.");
+      setError(t("detector.errorSelectImage"));
       return;
     }
 
@@ -279,7 +210,7 @@ const Demo = () => {
       });
 
       if (!response.ok) {
-        let message = "Prediction failed";
+        let message = t("detector.errorPredictionGeneric");
         try {
           const errorData = await response.json();
           message = errorData.detail || message;
@@ -299,8 +230,6 @@ const Demo = () => {
           filename: image.name,
           imageBlob: image,
           prediction: data.prediction,
-          model_prediction: data.model_prediction,
-          decision: data.decision,
           confidence: data.confidence,
           all_probabilities: data.all_probabilities,
           guidance: data.guidance,
@@ -311,30 +240,28 @@ const Demo = () => {
         setHistoryError(
           historySaveError instanceof Error
             ? historySaveError.message
-            : "Could not save this detection to local history.",
+            : t("detector.errorHistorySave"),
         );
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : t("detector.errorGeneric"));
       console.error("Prediction error:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  const decision = result ? inferDecision(result) : "accepted";
-  const decisionTheme = getDecisionTheme(decision);
-  const topClassName = result ? result.model_prediction ?? result.prediction : "";
-  const topLabel = topClassName ? formatClassName(topClassName) : "";
-  const topDetail = topLabel ? CLASS_DETAILS[topLabel] : undefined;
+  const topLabel = result ? formatClassName(result.prediction) : "";
+  const fallbackGuidance = getFallbackGuidance(language);
+  const topDetail = topLabel ? getDiseaseDetails(topLabel, language) : undefined;
   const isHistoryPreview = activeImageSource === "history";
   const guidance = result?.guidance
-    ? result.guidance
+    ? translateGuidance(result.guidance, topLabel, language)
     : result
       ? {
-          ...FALLBACK_GUIDANCE,
-          title: topDetail?.title || topLabel || FALLBACK_GUIDANCE.title,
-          description: topDetail?.description || FALLBACK_GUIDANCE.description,
+          ...fallbackGuidance,
+          title: topDetail?.title || (topLabel ? translateClassLabel(topLabel, language) : fallbackGuidance.title),
+          description: topDetail?.description || fallbackGuidance.description,
         }
       : undefined;
 
@@ -343,25 +270,25 @@ const Demo = () => {
       minH="100vh"
       px={{ base: 3, sm: 4, md: 8 }}
       py={{ base: 4, sm: 6, md: 10 }}
-      bg="linear-gradient(160deg, #c9dfc3 0%, #9fdc94 52%, #69905c 100%)"
+      bg="linear-gradient(160deg, #f2f8f0 0%, #eef6fa 52%, #ffffff 100%)"
     >
       <VStack gap={{ base: 4, md: 6 }} maxW="1100px" mx="auto" align="stretch">
         <Box
           border="1px solid"
-          borderColor="white"
+          borderColor="blackAlpha.100"
           bg="whiteAlpha.880"
           borderRadius={{ base: "xl", md: "2xl" }}
           p={{ base: 4, sm: 5, md: 8 }}
           boxShadow="0 8px 32px rgba(16, 24, 40, 0.08)"
         >
-          <Text fontSize="xs" letterSpacing={{ base: "0.12em", md: "0.16em" }} fontWeight="bold" textTransform="uppercase" color="black" mb={2}>
-            ai crop Health Scanner
+          <Text fontSize="xs" letterSpacing={{ base: "0.12em", md: "0.16em" }} textTransform="uppercase" color="green.700" mb={2}>
+            {t("detector.heroKicker")}
           </Text>
-          <Text fontSize={{ base: "xl", sm: "2xl", md: "4xl" }} fontWeight="bold" lineHeight="1.05" color="black">
-            Maize Leaf Disease Detection System
+          <Text fontSize={{ base: "xl", sm: "2xl", md: "4xl" }} fontWeight="bold" lineHeight="1.05" color="gray.900">
+            {t("detector.heroTitle")}
           </Text>
-          <Text mt={3} maxW="800px" color="black" fontSize={{ base: "sm", md: "md" }} fontWeight="medium">
-            Upload a clear maize leaf image for a crop health diagnosis. 
+          <Text mt={3} maxW="800px" color="gray.700" fontSize={{ base: "sm", md: "md" }}>
+            {t("detector.heroCopy")}
           </Text>
         </Box>
 
@@ -381,14 +308,14 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor=" #ececec"
-              bg=" #d2edd0"
+              borderColor="blackAlpha.100"
+              bg="white"
               borderRadius="xl"
-              boxShadow="0 10px 30px rgba(22, 163, 74, 0.08)"
+              boxShadow="sm"
               order={{ base: 1, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="black">
-                1) Upload Leaf Image
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                {t("detector.uploadTitle")}
               </Text>
               <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
                 <input
@@ -398,76 +325,46 @@ const Demo = () => {
                   onChange={handleImageChange}
                   style={{ display: "none" }}
                 />
-                
+                <Button
+                  variant="outline"
+                  colorScheme="green"
+                  borderWidth="2px"
+                  onClick={() => fileInputRef.current?.click()}
+                  w={{ base: "100%", sm: "auto" }}
+                >
+                  {t("detector.chooseFile")}
+                </Button>
+                <Text fontSize="sm" color="gray.600" lineClamp="1" minW={0}>
+                  {selectedFileName || t("detector.noFile")}
+                </Text>
               </Stack>
 
-             <Box 
-             minH={{ base: "260px", sm: "300px", md: "340px" }}
-             borderRadius="2xl"
-             border="2px dashed"
-             borderColor={previewUrl ? "green.400" : "green.300"}
-             display="flex"
-             alignItems="center"
-             justifyContent="center"
-             overflow="hidden"
-             bg={previewUrl ? "white" : "#edf7ed"}
-             position="relative"
-             cursor="pointer"
-             transition="all 0.3s ease"
-            _hover={{
-             borderColor: "green.500",
-             transform: "translateY(-2px)",
-             boxShadow: "0 10px 25px rgba(34,197,94,0.15)",}}
-             onClick={() => fileInputRef.current?.click()}
-            >
-            {previewUrl ? (
-            <Image
-             src={previewUrl}
-             alt="Selected maize leaf"
-             objectFit="cover"
-             w="100%"
-             h="100%"
-             maxH={{ base: "320px", md: "420px" }}
-             />
-            ) : (
-             <VStack gap={4}>
-             <Box
-              bg="green.100"
-              p={4}
-              borderRadius="full"
+              <Box
+                minH={{ base: "220px", sm: "260px", md: "280px" }}
+                borderRadius="lg"
+                border="1px dashed"
+                borderColor="gray.300"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                overflow="hidden"
+                bg="gray.50"
               >
-              <Text fontSize="3xl">🌽</Text>
+                {previewUrl ? (
+                  <Image
+                    src={previewUrl}
+                    alt={t("detector.previewAlt")}
+                    objectFit="cover"
+                    w="100%"
+                    h="100%"
+                    maxH={{ base: "320px", md: "420px" }}
+                  />
+                ) : (
+                  <Text color="gray.500" fontSize="sm" textAlign="center" px={6}>
+                    {t("detector.previewEmpty")}
+                  </Text>
+                )}
               </Box>
-
-              <VStack gap={1}>
-              <Text
-               color="green.800"
-               fontWeight="bold"
-               fontSize={{ base: "md", md: "lg" }}
-               textAlign="center"
-             >
-              Upload maize leaf image
-               </Text>
-
-               <Text
-               color="gray.600"
-               fontSize="sm"
-               textAlign="center"
-               >
-               Click here to browse your files
-               </Text>
-
-               <Text
-               color="gray.500"
-               fontSize="xs"
-               textAlign="center"
-                  >
-               Supports JPG, PNG and JPEG
-              </Text>
-              </VStack>
-              </VStack>
-            )}
-          </Box>
 
               <Stack direction={{ base: "column", sm: "row" }} gap={3}>
                 <Button
@@ -475,20 +372,18 @@ const Demo = () => {
                   onClick={handlePredict}
                   disabled={!image || loading || isHistoryPreview}
                   loading={loading}
-                  loadingText="Analyzing"
-                  
+                  loadingText={t("detector.analyzing")}
                   w={{ base: "100%", sm: "auto" }}
                 >
-                  Analyze Image
+                  {t("detector.analyze")}
                 </Button>
                 <Button
                   variant="outline"
                   onClick={handleReset}
                   disabled={!image && !result && !error}
                   w={{ base: "100%", sm: "auto" }}
-                  color="black"
                 >
-                  Reset
+                  {t("detector.reset")}
                 </Button>
               </Stack>
 
@@ -496,7 +391,7 @@ const Demo = () => {
                 <HStack gap={2} color="gray.700" align="start">
                   <Spinner size="sm" color="green.600" />
                   <Text fontSize="sm" lineHeight="1.4">
-                    Running model inference on the uploaded leaf...
+                    {t("detector.runningInference")}
                   </Text>
                 </HStack>
               )}
@@ -504,7 +399,7 @@ const Demo = () => {
               {isHistoryPreview && !loading && (
                 <Box borderRadius="md" bg="orange.50" border="1px solid" borderColor="orange.100" p={3}>
                   <Text fontSize="sm" color="gray.700" lineHeight="1.5">
-                    This image was restored from detection history. Choose a new file to analyze another image.
+                    {t("detector.historyPreview")}
                   </Text>
                 </Box>
               )}
@@ -513,7 +408,7 @@ const Demo = () => {
                 <Alert.Root status="error" borderRadius="md">
                   <Alert.Indicator />
                   <Alert.Content>
-                    <Alert.Title>Prediction failed</Alert.Title>
+                    <Alert.Title>{t("detector.predictionFailed")}</Alert.Title>
                     <Alert.Description>{error}</Alert.Description>
                   </Alert.Content>
                 </Alert.Root>
@@ -525,20 +420,20 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="white"
-              bg=" #d2edd0"
+              borderColor="blackAlpha.100"
+              bg="white"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 3, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="black">
-                3) Treatment and Prevention
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                {t("detector.guidanceTitle")}
               </Text>
 
               {!guidance && !loading && (
-                <Box borderRadius="lg" bg="#d9e7d8" p={5}>
-                  <Text fontSize="sm" color="black" textAlign="center">
-                    Treatment and prevention guidance will appear here after the image is analyzed.
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    {t("detector.guidanceEmpty")}
                   </Text>
                 </Box>
               )}
@@ -550,10 +445,10 @@ const Demo = () => {
                     borderRadius="lg"
                     bg="orange.50"
                     border="1px solid"
-                    borderColor="white"
+                    borderColor="orange.100"
                   >
                     <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
-                      Treatment
+                      {t("detector.treatment")}
                     </Text>
                     <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
                       {guidance.treatment}
@@ -565,10 +460,10 @@ const Demo = () => {
                     borderRadius="lg"
                     bg="blue.50"
                     border="1px solid"
-                    borderColor="white"
+                    borderColor="blue.100"
                   >
                     <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
-                      Prevention
+                      {t("detector.prevention")}
                     </Text>
                     <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
                       {guidance.prevention}
@@ -585,54 +480,51 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="white"
-              bg=" #d2edd0"
+              borderColor="blackAlpha.100"
+              bg="white"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 2, lg: 0 }}
             >
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
-                2) Analysis Result
+                {t("detector.resultTitle")}
               </Text>
 
               {!result && !loading && (
-                <Box borderRadius="lg" bg= "#d9e7d8"  p={5}>
-                  <Text fontSize="sm" color="black">
-                    Results will appear here after analysis, including confidence scores for all classes.
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    {t("detector.resultEmpty")}
                   </Text>
                 </Box>
               )}
 
               {result && (
                 <VStack align="stretch" gap={4}>
-                  <Box p={4} borderRadius="lg" bg={decisionTheme.bg} border="1px solid" borderColor={decisionTheme.border}>
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color={decisionTheme.accent}>
-                      {decisionTheme.bannerLabel}
+                  <Box p={4} borderRadius="lg" bg="green.50" border="1px solid" borderColor="green.100">
+                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="green.700">
+                      {t("detector.primaryDetection")}
                     </Text>
-                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="black">
-                      {guidance?.title || topDetail?.title || topLabel}
+                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
+                      {guidance?.title || topDetail?.title || translateClassLabel(topLabel, language)}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="black">
-                      {guidance?.description || topDetail?.description || "Detected class from the trained maize model."}
-                    </Text>
-                    <Text mt={2} fontSize="sm" color="black">
-                      {decisionTheme.statusText}
+                    <Text mt={2} fontSize="sm" color="gray.700">
+                      {guidance?.description || topDetail?.description || t("detector.detectedClass")}
                     </Text>
                     <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
-                      Confidence: {(result.confidence * 100).toFixed(1)}%
+                      {t("detector.confidence")}: {(result.confidence * 100).toFixed(1)}%
                     </Text>
                   </Box>
 
                   <Box>
                     <Text fontSize="sm" color="gray.700" mb={2}>
-                      All predictions
+                      {t("detector.allPredictions")}
                     </Text>
                     <VStack gap={2} align="stretch">
                       {Object.entries(result.all_probabilities)
                         .sort(([, a], [, b]) => b - a)
                         .map(([className, probability]) => {
-                          const label = formatClassName(className);
-                          const isTop = className === topClassName;
+                          const label = translateClassLabel(formatClassName(className), language);
+                          const isTop = className === result.prediction;
                           const width = `${Math.min(100, Math.max(0, probability * 100)).toFixed(1)}%`;
 
                           return (
@@ -656,7 +548,7 @@ const Demo = () => {
                                 <Box
                                   h="100%"
                                   borderRadius="full"
-                                  bg={isTop ? decisionTheme.highlight : "grey"}
+                                  bg={isTop ? "green.500" : "blue.400"}
                                   w={width}
                                 />
                               </Box>
@@ -674,27 +566,29 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="white"
-             bg=" #d2edd0"
+              borderColor="blackAlpha.100"
+              bg="white"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 4, lg: 0 }}
             >
               <HStack>
-                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="bold" color="black">
-                  4) Detection History 
+                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                  {t("detector.historyTitle")}
                 </Text>
-                <span><Text fontWeight={"extralight"} fontSize={"xs"}>(Click item to view history)</Text></span>
+                <span><Text fontWeight={"extralight"} fontSize={"xs"}>{t("detector.historyHint")}</Text></span>
               </HStack>
               {historyItems.length > 0 && (
-                <Text fontSize={{ base: "sm", md: "md" }} as="span" fontWeight="light">{historyItems.length} items</Text>
+                <Text fontSize={{ base: "sm", md: "md" }} as="span" fontWeight="light">
+                  {historyItems.length} {t("detector.items")}
+                </Text>
               )}
 
               {historyLoading && (
                 <HStack gap={2} color="gray.700" align="start">
                   <Spinner size="sm" color="green.600" />
                   <Text fontSize="sm" lineHeight="1.4">
-                    Loading previous detections...
+                    {t("detector.loadingHistory")}
                   </Text>
                 </HStack>
               )}
@@ -703,16 +597,16 @@ const Demo = () => {
                 <Alert.Root status="warning" borderRadius="md">
                   <Alert.Indicator />
                   <Alert.Content>
-                    <Alert.Title>History unavailable</Alert.Title>
+                    <Alert.Title>{t("detector.historyUnavailable")}</Alert.Title>
                     <Alert.Description>{historyError}</Alert.Description>
                   </Alert.Content>
                 </Alert.Root>
               )}
 
               {!historyLoading && !historyItems.length && !historyError && (
-                <Box borderRadius="lg"bg=" #d9e7d8" p={5}>
-                  <Text fontSize="sm" color="black">
-                    Successful detections will be saved here so you can reopen them later.
+                <Box borderRadius="lg" bg="gray.50" p={5}>
+                  <Text fontSize="sm" color="gray.600">
+                    {t("detector.historyEmpty")}
                   </Text>
                 </Box>
               )}
@@ -725,7 +619,8 @@ const Demo = () => {
                 >
                   <VStack align="stretch" gap={3}>
                     {historyItems.map((item) => {
-                      const title = item.guidance?.title || formatClassName(item.model_prediction ?? item.prediction);
+                      const itemGuidance = translateGuidance(item.guidance, item.prediction, language);
+                      const title = itemGuidance.title || translateClassLabel(formatClassName(item.prediction), language);
 
                       return (
                         <Box
@@ -794,7 +689,7 @@ const Demo = () => {
                                     whiteSpace={{ base: "normal", sm: "nowrap" }}
                                     textAlign={{ base: "left", sm: "right" }}
                                   >
-                                    {formatHistoryTimestamp(item.createdAt)}
+                                    {formatDateTime(item.createdAt)}
                                   </Text>
                                   <Button
                                     size="xs"
@@ -802,17 +697,17 @@ const Demo = () => {
                                     colorScheme="red"
                                     onClick={(event) => handleHistoryDelete(event, item.id)}
                                   >
-                                    Delete
+                                    {t("detector.delete")}
                                   </Button>
                                 </Stack>
                               </Stack>
 
                               <Text mt={2} fontSize="sm" color={getConfidenceColor(item.confidence)} fontWeight="semibold">
-                                Confidence: {(item.confidence * 100).toFixed(1)}%
+                                {t("detector.confidence")}: {(item.confidence * 100).toFixed(1)}%
                               </Text>
 
                               <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.5" lineClamp={3}>
-                                {item.guidance?.treatment || FALLBACK_GUIDANCE.treatment} | {item.guidance?.prevention || FALLBACK_GUIDANCE.prevention}
+                                {itemGuidance.treatment || fallbackGuidance.treatment}
                               </Text>
                             </Box>
                           </Stack>
