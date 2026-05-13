@@ -33,7 +33,7 @@ interface PredictionResult {
   guidance?: PredictionGuidance;
   filename: string;
 }
-
+  
 interface DetectionHistoryItem extends DetectionHistoryRecord {
   previewUrl: string;
 }
@@ -343,26 +343,25 @@ const Demo = () => {
       minH="100vh"
       px={{ base: 3, sm: 4, md: 8 }}
       py={{ base: 4, sm: 6, md: 10 }}
-      bg="linear-gradient(160deg, #f2f8f0 0%, #eef6fa 52%, #ffffff 100%)"
+      bg="linear-gradient(160deg, #c9dfc3 0%, #9fdc94 52%, #69905c 100%)"
     >
       <VStack gap={{ base: 4, md: 6 }} maxW="1100px" mx="auto" align="stretch">
         <Box
           border="1px solid"
-          borderColor="blackAlpha.100"
+          borderColor="white"
           bg="whiteAlpha.880"
           borderRadius={{ base: "xl", md: "2xl" }}
           p={{ base: 4, sm: 5, md: 8 }}
           boxShadow="0 8px 32px rgba(16, 24, 40, 0.08)"
         >
-          <Text fontSize="xs" letterSpacing={{ base: "0.12em", md: "0.16em" }} textTransform="uppercase" color="green.700" mb={2}>
-            AI Crop Health Scanner
+          <Text fontSize="xs" letterSpacing={{ base: "0.12em", md: "0.16em" }} fontWeight="bold" textTransform="uppercase" color="black" mb={2}>
+            ai crop Health Scanner
           </Text>
-          <Text fontSize={{ base: "xl", sm: "2xl", md: "4xl" }} fontWeight="bold" lineHeight="1.05" color="gray.900">
-            Maize Leaf Disease Detection
+          <Text fontSize={{ base: "xl", sm: "2xl", md: "4xl" }} fontWeight="bold" lineHeight="1.05" color="black">
+            Maize Leaf Disease Detection System
           </Text>
-          <Text mt={3} maxW="800px" color="gray.700" fontSize={{ base: "sm", md: "md" }}>
-            Upload a clear maize leaf image to detect common diseases including Gray Leaf Spot,
-            Common Rust, and Northern Leaf Blight.
+          <Text mt={3} maxW="800px" color="black" fontSize={{ base: "sm", md: "md" }} fontWeight="medium">
+            Upload a clear maize leaf image for a crop health diagnosis. 
           </Text>
         </Box>
 
@@ -382,13 +381,13 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
+              borderColor=" #ececec"
+              bg=" #d2edd0"
               borderRadius="xl"
-              boxShadow="sm"
+              boxShadow="0 10px 30px rgba(22, 163, 74, 0.08)"
               order={{ base: 1, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="black">
                 1) Upload Leaf Image
               </Text>
               <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
@@ -399,46 +398,76 @@ const Demo = () => {
                   onChange={handleImageChange}
                   style={{ display: "none" }}
                 />
-                <Button
-                  variant="outline"
-                  colorScheme="green"
-                  borderWidth="2px"
-                  onClick={() => fileInputRef.current?.click()}
-                  w={{ base: "100%", sm: "auto" }}
-                >
-                  Choose File
-                </Button>
-                <Text fontSize="sm" color="gray.600" lineClamp="1" minW={0}>
-                  {selectedFileName || "No file selected"}
-                </Text>
+                
               </Stack>
 
-              <Box
-                minH={{ base: "220px", sm: "260px", md: "280px" }}
-                borderRadius="lg"
-                border="1px dashed"
-                borderColor="gray.300"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                overflow="hidden"
-                bg="gray.50"
+             <Box 
+             minH={{ base: "260px", sm: "300px", md: "340px" }}
+             borderRadius="2xl"
+             border="2px dashed"
+             borderColor={previewUrl ? "green.400" : "green.300"}
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             overflow="hidden"
+             bg={previewUrl ? "white" : "#edf7ed"}
+             position="relative"
+             cursor="pointer"
+             transition="all 0.3s ease"
+            _hover={{
+             borderColor: "green.500",
+             transform: "translateY(-2px)",
+             boxShadow: "0 10px 25px rgba(34,197,94,0.15)",}}
+             onClick={() => fileInputRef.current?.click()}
+            >
+            {previewUrl ? (
+            <Image
+             src={previewUrl}
+             alt="Selected maize leaf"
+             objectFit="cover"
+             w="100%"
+             h="100%"
+             maxH={{ base: "320px", md: "420px" }}
+             />
+            ) : (
+             <VStack gap={4}>
+             <Box
+              bg="green.100"
+              p={4}
+              borderRadius="full"
               >
-                {previewUrl ? (
-                  <Image
-                    src={previewUrl}
-                    alt="Selected maize leaf"
-                    objectFit="cover"
-                    w="100%"
-                    h="100%"
-                    maxH={{ base: "320px", md: "420px" }}
-                  />
-                ) : (
-                  <Text color="gray.500" fontSize="sm" textAlign="center" px={6}>
-                    A preview will appear here once an image is selected.
-                  </Text>
-                )}
+              <Text fontSize="3xl">🌽</Text>
               </Box>
+
+              <VStack gap={1}>
+              <Text
+               color="green.800"
+               fontWeight="bold"
+               fontSize={{ base: "md", md: "lg" }}
+               textAlign="center"
+             >
+              Upload maize leaf image
+               </Text>
+
+               <Text
+               color="gray.600"
+               fontSize="sm"
+               textAlign="center"
+               >
+               Click here to browse your files
+               </Text>
+
+               <Text
+               color="gray.500"
+               fontSize="xs"
+               textAlign="center"
+                  >
+               Supports JPG, PNG and JPEG
+              </Text>
+              </VStack>
+              </VStack>
+            )}
+          </Box>
 
               <Stack direction={{ base: "column", sm: "row" }} gap={3}>
                 <Button
@@ -447,6 +476,7 @@ const Demo = () => {
                   disabled={!image || loading || isHistoryPreview}
                   loading={loading}
                   loadingText="Analyzing"
+                  
                   w={{ base: "100%", sm: "auto" }}
                 >
                   Analyze Image
@@ -456,6 +486,7 @@ const Demo = () => {
                   onClick={handleReset}
                   disabled={!image && !result && !error}
                   w={{ base: "100%", sm: "auto" }}
+                  color="black"
                 >
                   Reset
                 </Button>
@@ -494,19 +525,19 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
+              borderColor="white"
+              bg=" #d2edd0"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 3, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="black">
                 3) Treatment and Prevention
               </Text>
 
               {!guidance && !loading && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box borderRadius="lg" bg="#d9e7d8" p={5}>
+                  <Text fontSize="sm" color="black" textAlign="center">
                     Treatment and prevention guidance will appear here after the image is analyzed.
                   </Text>
                 </Box>
@@ -519,7 +550,7 @@ const Demo = () => {
                     borderRadius="lg"
                     bg="orange.50"
                     border="1px solid"
-                    borderColor="orange.100"
+                    borderColor="white"
                   >
                     <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
                       Treatment
@@ -534,7 +565,7 @@ const Demo = () => {
                     borderRadius="lg"
                     bg="blue.50"
                     border="1px solid"
-                    borderColor="blue.100"
+                    borderColor="white"
                   >
                     <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
                       Prevention
@@ -554,8 +585,8 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
+              borderColor="white"
+              bg=" #d2edd0"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 2, lg: 0 }}
@@ -565,8 +596,8 @@ const Demo = () => {
               </Text>
 
               {!result && !loading && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box borderRadius="lg" bg= "#d9e7d8"  p={5}>
+                  <Text fontSize="sm" color="black">
                     Results will appear here after analysis, including confidence scores for all classes.
                   </Text>
                 </Box>
@@ -578,13 +609,13 @@ const Demo = () => {
                     <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color={decisionTheme.accent}>
                       {decisionTheme.bannerLabel}
                     </Text>
-                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
+                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="black">
                       {guidance?.title || topDetail?.title || topLabel}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700">
+                    <Text mt={2} fontSize="sm" color="black">
                       {guidance?.description || topDetail?.description || "Detected class from the trained maize model."}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700">
+                    <Text mt={2} fontSize="sm" color="black">
                       {decisionTheme.statusText}
                     </Text>
                     <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
@@ -625,7 +656,7 @@ const Demo = () => {
                                 <Box
                                   h="100%"
                                   borderRadius="full"
-                                  bg={isTop ? decisionTheme.highlight : "blue.400"}
+                                  bg={isTop ? decisionTheme.highlight : "grey"}
                                   w={width}
                                 />
                               </Box>
@@ -643,14 +674,14 @@ const Demo = () => {
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
               border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
+              borderColor="white"
+             bg=" #d2edd0"
               borderRadius="xl"
               boxShadow="sm"
               order={{ base: 4, lg: 0 }}
             >
               <HStack>
-                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="bold" color="black">
                   4) Detection History 
                 </Text>
                 <span><Text fontWeight={"extralight"} fontSize={"xs"}>(Click item to view history)</Text></span>
@@ -679,8 +710,8 @@ const Demo = () => {
               )}
 
               {!historyLoading && !historyItems.length && !historyError && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box borderRadius="lg"bg=" #d9e7d8" p={5}>
+                  <Text fontSize="sm" color="black">
                     Successful detections will be saved here so you can reopen them later.
                   </Text>
                 </Box>
@@ -781,7 +812,7 @@ const Demo = () => {
                               </Text>
 
                               <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.5" lineClamp={3}>
-                                {item.guidance?.treatment || FALLBACK_GUIDANCE.treatment}
+                                {item.guidance?.treatment || FALLBACK_GUIDANCE.treatment} | {item.guidance?.prevention || FALLBACK_GUIDANCE.prevention}
                               </Text>
                             </Box>
                           </Stack>
