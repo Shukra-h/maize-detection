@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { FiX } from "react-icons/fi";
+import { useI18n } from "./i18n";
 import { supabase } from "./supabaseClient";
 
 export type AuthMode = "login" | "signup";
@@ -11,6 +12,7 @@ interface AuthModalProps {
 }
 
 function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
+  const { t } = useI18n();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
     setMessage(null);
 
     if (!supabase) {
-      setError("Supabase is not configured yet.");
+      setError(t("authModal.supabaseMissing"));
       setSubmitting(false);
       return;
     }
@@ -51,7 +53,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
           return;
         }
 
-        setMessage("Account created. Check your email to confirm your address, then log in.");
+        setMessage(t("authModal.accountCreated"));
       } else {
         const { error: loginError } = await supabase.auth.signInWithPassword({
           email,
@@ -65,7 +67,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
         onClose();
       }
     } catch (authError) {
-      setError(authError instanceof Error ? authError.message : "Authentication failed.");
+      setError(authError instanceof Error ? authError.message : t("authModal.authFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -79,23 +81,20 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
         className="auth-dialog"
         role="dialog"
       >
-        <button className="auth-close" type="button" onClick={onClose} aria-label="Close auth form">
+        <button className="auth-close" type="button" onClick={onClose} aria-label={t("authModal.close")}>
           <FiX aria-hidden="true" />
         </button>
 
         <div className="auth-dialog__intro">
-          <p className="landing-kicker">Project account</p>
-          <h2 id="auth-modal-title">{isSignup ? "Create your account" : "Log in to continue"}</h2>
-          <p>
-            Use a Supabase-backed account for the demo while the maize detection workflow stays
-            simple and easy to try.
-          </p>
+
+          <h2 id="auth-modal-title">{isSignup ? t("authModal.createTitle") : t("authModal.loginTitle")}</h2>
+         
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
           {isSignup && (
             <label className="auth-field">
-              <span>Name</span>
+              <span>{t("authModal.name")}</span>
               <input
                 autoComplete="name"
                 maxLength={80}
@@ -109,7 +108,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
           )}
 
           <label className="auth-field">
-            <span>Email</span>
+            <span>{t("authModal.email")}</span>
             <input
               autoComplete="email"
               maxLength={254}
@@ -121,7 +120,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
           </label>
 
           <label className="auth-field">
-            <span>Password</span>
+            <span>{t("authModal.password")}</span>
             <input
               autoComplete={isSignup ? "new-password" : "current-password"}
               maxLength={128}
@@ -137,12 +136,12 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
           {message && <p className="auth-message">{message}</p>}
 
           <button className="landing-primary auth-submit" disabled={submitting} type="submit">
-            {submitting ? "Please wait..." : isSignup ? "Create account" : "Log in"}
+            {submitting ? t("authModal.wait") : isSignup ? t("authModal.createAccount") : t("auth.login")}
           </button>
         </form>
 
         <p className="auth-switch">
-          {isSignup ? "Already have an account?" : "Need an account?"}
+          {isSignup ? t("authModal.haveAccount") : t("authModal.needAccount")}
           <button
             type="button"
             onClick={() => {
@@ -151,7 +150,7 @@ function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
               onModeChange(isSignup ? "login" : "signup");
             }}
           >
-            {isSignup ? "Log in" : "Sign up"}
+            {isSignup ? t("auth.login") : t("auth.signup")}
           </button>
         </p>
       </section>

@@ -1,12 +1,15 @@
-import { useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { FiArrowRight, FiBarChart2, FiBookOpen, FiImage } from "react-icons/fi";
-import AuthModal, { type AuthMode } from "./AuthModal";
+import AuthControls from "./AuthControls";
+import LanguageToggle from "./LanguageToggle";
+import { useI18n } from "./i18n";
 
 interface LandingPageProps {
   authConfigured: boolean;
   authLoading: boolean;
+  onLogin: () => void;
   onLogout: () => void;
+  onSignup: () => void;
   onStart: () => void;
   user: User | null;
 }
@@ -14,33 +17,31 @@ interface LandingPageProps {
 const steps = [
   {
     icon: FiImage,
-    title: "Upload a leaf",
-    text: "Start with a clear maize leaf photo from the demo device or your computer.",
+    titleKey: "landing.stepUploadTitle",
+    textKey: "landing.stepUploadText",
   },
   {
     icon: FiBarChart2,
-    title: "Review confidence",
-    text: "The app returns the top class plus confidence scores across the trained labels.",
+    titleKey: "landing.stepConfidenceTitle",
+    textKey: "landing.stepConfidenceText",
   },
   {
     icon: FiBookOpen,
-    title: "Read guidance",
-    text: "Accepted predictions include short treatment and prevention notes for review.",
+    titleKey: "landing.stepGuidanceTitle",
+    textKey: "landing.stepGuidanceText",
   },
 ];
 
 function LandingPage({
   authConfigured,
   authLoading,
+  onLogin,
   onLogout,
+  onSignup,
   onStart,
   user,
 }: LandingPageProps) {
-  const [authMode, setAuthMode] = useState<AuthMode | null>(null);
-  const displayName =
-    (typeof user?.user_metadata?.name === "string" && user.user_metadata.name) ||
-    user?.email?.split("@")[0] ||
-    "User";
+  const { t } = useI18n();
 
   return (
     <main className="landing-page">
@@ -59,87 +60,61 @@ function LandingPage({
           </div>
         </div>
 
-        <nav className="landing-nav" aria-label="Project">
+        <nav className="landing-nav" aria-label={t("app.academicDemo")}>
           <div className="landing-nav__identity">
-            <span className="landing-brand">Maize Detection</span>
-            <span className="landing-tag">Academic project demo</span>
+            <span className="landing-brand">{t("app.brand")}</span>
+            <span className="landing-tag">{t("app.academicDemo")}</span>
           </div>
 
           <div className="landing-nav__actions">
-            {!authConfigured ? (
-              <span className="landing-account">Add Supabase keys to enable auth</span>
-            ) : authLoading ? (
-              <span className="landing-account">Checking session...</span>
-            ) : user ? (
-              <>
-                <span className="landing-account">Signed in as {displayName}</span>
-                <button className="landing-nav-button" type="button" onClick={onLogout}>
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="landing-nav-button" type="button" onClick={() => setAuthMode("login")}>
-                  Log in
-                </button>
-                <button
-                  className="landing-nav-button landing-nav-button--solid"
-                  type="button"
-                  onClick={() => setAuthMode("signup")}
-                >
-                  Sign up
-                </button>
-              </>
-            )}
+            <LanguageToggle />
+            <AuthControls
+              authConfigured={authConfigured}
+              authLoading={authLoading}
+              onLogin={onLogin}
+              onLogout={onLogout}
+              onSignup={onSignup}
+              user={user}
+            />
           </div>
         </nav>
 
         <div className="landing-hero__content">
-          <p className="landing-kicker">Maize leaf diagnosis study</p>
-          <h1 id="landing-title">A simple demo for maize leaf disease detection.</h1>
-          <p className="landing-copy">
-            Upload a maize leaf image, run the trained classifier, and review the model's
-            confidence across common maize health classes.
-          </p>
+          <p className="landing-kicker">{t("landing.kicker")}</p>
+          <h1 id="landing-title">{t("landing.title")}</h1>
+          <p className="landing-copy">{t("landing.copy")}</p>
 
           <div className="landing-actions">
             <button className="landing-primary" type="button" onClick={onStart}>
-              Start detection
+              {t("landing.start")}
               <FiArrowRight aria-hidden="true" />
             </button>
-            <span className="landing-footnote">Built for demonstration and study.</span>
+            <span className="landing-footnote">{t("landing.footnote")}</span>
           </div>
         </div>
       </section>
 
-      <section className="landing-overview" aria-label="Demo overview">
+      <section className="landing-overview" aria-label={t("landing.overviewKicker")}>
         <div className="overview-heading">
-          <p className="landing-kicker">What the demo shows</p>
-          <h2>One focused workflow from image to prediction.</h2>
+          <p className="landing-kicker">{t("landing.overviewKicker")}</p>
+          <h2>{t("landing.overviewTitle")}</h2>
         </div>
 
         <div className="overview-grid">
           {steps.map((step) => {
             const Icon = step.icon;
+            const title = t(step.titleKey);
 
             return (
-              <article className="overview-card" key={step.title}>
+              <article className="overview-card" key={step.titleKey}>
                 <Icon className="overview-card__icon" aria-hidden="true" />
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
+                <h3>{title}</h3>
+                <p>{t(step.textKey)}</p>
               </article>
             );
           })}
         </div>
       </section>
-
-      {authMode && (
-        <AuthModal
-          mode={authMode}
-          onClose={() => setAuthMode(null)}
-          onModeChange={setAuthMode}
-        />
-      )}
     </main>
   );
 }
