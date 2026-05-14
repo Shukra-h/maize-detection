@@ -11,6 +11,7 @@ interface AuthModalProps {
   onModeChange: (mode: AuthMode) => void;
 }
 
+//Handles login/setup model w form state, validation, and UI feedback
 function AuthModal({ mode, onClose, onModeChange }: AuthModalProps) {
   const { t } = useI18n();
   const [name, setName] = useState("");
