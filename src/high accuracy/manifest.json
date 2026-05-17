@@ -1,0 +1,3072 @@
+{
+  "purpose": "Curated high-confidence examples for demos/manual testing. Images are copied only when the shipped model predicts the folder class correctly with confidence >= 0.85.",
+  "model_path": "src/api/best_model.keras",
+  "dataset_root": "Dataset Folder/maize_dataset_v3",
+  "output_root": "Dataset Folder/high accuracy",
+  "confidence_threshold": 0.85,
+  "target_per_class": 50,
+  "source_split_priority": [
+    "internet_holdout_test",
+    "test",
+    "valid",
+    "train"
+  ],
+  "counts_by_class": {
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 50,
+    "Corn_(maize)___Common_rust_": 9,
+    "Corn_(maize)___Northern_Leaf_Blight": 0,
+    "Corn_(maize)___healthy": 50,
+    "unknown_unclassified": 50
+  },
+  "eligible_counts_by_class": {
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 550,
+    "Corn_(maize)___Common_rust_": 9,
+    "Corn_(maize)___Northern_Leaf_Blight": 0,
+    "Corn_(maize)___healthy": 337,
+    "unknown_unclassified": 3257
+  },
+  "total_selected": 159,
+  "skipped_count": 44,
+  "records": [
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00117_3614042d9e.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9889097213745117,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9889097213745117
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.009297262877225876
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/001_internet_holdout_test_conf9889_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00117_3614042d9e.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00118_4d61756b45.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9804019331932068,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9804019331932068
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.017556345090270042
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/002_internet_holdout_test_conf9804_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00118_4d61756b45.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00066_4e7d11f96d.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9785128831863403,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9785128831863403
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.017908301204442978
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/003_internet_holdout_test_conf9785_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00066_4e7d11f96d.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00137_2ec292ab36.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9700583219528198,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9700583219528198
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.02602568455040455
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/004_internet_holdout_test_conf9701_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00137_2ec292ab36.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00022_ff1267b0da.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9691289067268372,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9691289067268372
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.017769379541277885
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/005_internet_holdout_test_conf9691_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00022_ff1267b0da.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00114_51df620a2f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9659441113471985,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9659441113471985
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.028956333175301552
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/006_internet_holdout_test_conf9659_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00114_51df620a2f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00046_d40bff4c76.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9648643136024475,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9648643136024475
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03184754401445389
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/007_internet_holdout_test_conf9649_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00046_d40bff4c76.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00129_f5360f6b49.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.961753249168396,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.961753249168396
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03616000711917877
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/008_internet_holdout_test_conf9618_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00129_f5360f6b49.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00032_416a63d526.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9592769742012024,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9592769742012024
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03802727535367012
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/009_internet_holdout_test_conf9593_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00032_416a63d526.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00047_4a02ff835c.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9529503583908081,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9529503583908081
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04513484984636307
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/010_internet_holdout_test_conf9530_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00047_4a02ff835c.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00064_33f502c924.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9513652324676514,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9513652324676514
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04658820852637291
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/011_internet_holdout_test_conf9514_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00064_33f502c924.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00012_9cb78bc36f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9503936767578125,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9503936767578125
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.028908831998705864
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/012_internet_holdout_test_conf9504_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00012_9cb78bc36f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00174_ac1e5e4d66.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9496620893478394,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9496620893478394
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04017426818609238
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/013_internet_holdout_test_conf9497_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00174_ac1e5e4d66.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00002_70273382e7.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9490430951118469,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9490430951118469
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04814070835709572
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/014_internet_holdout_test_conf9490_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00002_70273382e7.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00150_a08cb9922b.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9484394192695618,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9484394192695618
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04763802886009216
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/015_internet_holdout_test_conf9484_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00150_a08cb9922b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00014_5a2158dcd0.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9473406076431274,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9473406076431274
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05036357417702675
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/016_internet_holdout_test_conf9473_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00014_5a2158dcd0.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00021_cfb478ea8f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9464020729064941,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9464020729064941
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.048994291573762894
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/017_internet_holdout_test_conf9464_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00021_cfb478ea8f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00171_42e23be398.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9453723430633545,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9453723430633545
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05258513614535332
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/018_internet_holdout_test_conf9454_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00171_42e23be398.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00005_15cbe1755f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.945025622844696,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.945025622844696
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05045727267861366
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/019_internet_holdout_test_conf9450_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00005_15cbe1755f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00109_aa66f1d1e7.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9432632327079773,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9432632327079773
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05427589640021324
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/020_internet_holdout_test_conf9433_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00109_aa66f1d1e7.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00027_03812886b5.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.93712317943573,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.93712317943573
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.028431041166186333
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/021_internet_holdout_test_conf9371_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00027_03812886b5.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00142_2b605eaba4.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9362320899963379,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9362320899963379
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06233536824584007
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/022_internet_holdout_test_conf9362_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00142_2b605eaba4.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00063_3f04e639b8.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9329938888549805,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9329938888549805
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06582652032375336
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/023_internet_holdout_test_conf9330_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00063_3f04e639b8.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00011_e1a87f629d.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9298743605613708,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9298743605613708
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04886141046881676
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/024_internet_holdout_test_conf9299_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00011_e1a87f629d.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00039_ec29e41faf.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9287634491920471,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9287634491920471
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06151820346713066
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/025_internet_holdout_test_conf9288_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00039_ec29e41faf.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00024_6ba4ccb5c6.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9258760213851929,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9258760213851929
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03510378301143646
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/026_internet_holdout_test_conf9259_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00024_6ba4ccb5c6.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00105_00b0ec0deb.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9237046837806702,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9237046837806702
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06952548772096634
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/027_internet_holdout_test_conf9237_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00105_00b0ec0deb.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00030_fbca606558.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9231261014938354,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9231261014938354
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.074241042137146
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/028_internet_holdout_test_conf9231_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00030_fbca606558.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00022_4eadde9da5.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.91829514503479,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.91829514503479
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07971467822790146
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/029_internet_holdout_test_conf9183_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00022_4eadde9da5.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00021_2e1d50ac12.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9161641597747803,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9161641597747803
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.042720794677734375
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/030_internet_holdout_test_conf9162_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00021_2e1d50ac12.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00078_be8a2537c3.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9134734272956848,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9134734272956848
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08231589198112488
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/031_internet_holdout_test_conf9135_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00078_be8a2537c3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00007_29002a251f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9123793840408325,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9123793840408325
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07372445613145828
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/032_internet_holdout_test_conf9124_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00007_29002a251f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00094_514f949c13.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9103810787200928,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9103810787200928
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08433237671852112
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/033_internet_holdout_test_conf9104_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00094_514f949c13.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00019_31d4551dd6.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9069966077804565,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9069966077804565
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06822719424962997
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/034_internet_holdout_test_conf9070_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00019_31d4551dd6.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00029_164f1a39e1.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9037730097770691,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9037730097770691
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.09339573979377747
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/035_internet_holdout_test_conf9038_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00029_164f1a39e1.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00001_cac6218683.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9030976891517639,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9030976891517639
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.0477929562330246
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/036_internet_holdout_test_conf9031_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00001_cac6218683.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00073_ad7e319f37.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.9028404355049133,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.9028404355049133
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08036912232637405
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/037_internet_holdout_test_conf9028_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00073_ad7e319f37.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00043_3063618ba6.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8994688391685486,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8994688391685486
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.09078224748373032
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/038_internet_holdout_test_conf8995_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00043_3063618ba6.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00108_1a5a4ab655.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8961000442504883,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8961000442504883
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08929602801799774
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/039_internet_holdout_test_conf8961_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00108_1a5a4ab655.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00069_54e382549b.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8928507566452026,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8928507566452026
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.056628696620464325
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/040_internet_holdout_test_conf8929_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00069_54e382549b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00056_a68e72e9c7.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8901461362838745,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8901461362838745
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.10497421026229858
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/041_internet_holdout_test_conf8901_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00056_a68e72e9c7.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00168_b6afb63418.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8891072869300842,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8891072869300842
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.10734109580516815
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/042_internet_holdout_test_conf8891_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00168_b6afb63418.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00085_c7f69b5213.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8887633085250854,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8887633085250854
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.09287925809621811
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/043_internet_holdout_test_conf8888_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00085_c7f69b5213.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00130_45f82b2da2.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8845258951187134,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8845258951187134
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.11123701930046082
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/044_internet_holdout_test_conf8845_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00130_45f82b2da2.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00155_47e307e66a.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8827965259552002,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8827965259552002
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.1113293394446373
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/045_internet_holdout_test_conf8828_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00155_47e307e66a.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00134_da805906b2.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8719078898429871,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8719078898429871
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.11356692761182785
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/046_internet_holdout_test_conf8719_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00134_da805906b2.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00032_271520998a.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8682732582092285,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8682732582092285
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.057644326239824295
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/047_internet_holdout_test_conf8683_figshare_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00032_271520998a.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00000_a21af2534e.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8681174516677856,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8681174516677856
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.12565943598747253
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/048_internet_holdout_test_conf8681_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00000_a21af2534e.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00012_a22c765b9a.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8662580251693726,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8662580251693726
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.10402434319257736
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/049_internet_holdout_test_conf8663_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00012_a22c765b9a.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00018_f0982f5473.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "predicted_class": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "confidence": 0.8624321818351746,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.8624321818351746
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08379793167114258
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot/050_internet_holdout_test_conf8624_seasonal_internet_holdout_test_Corn_maize__Cercospora_leaf_spot_Gray_leaf_spot_00018_f0982f5473.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Common_rust_/seasonal_internet_holdout_test_Corn_maize__Common_rust__00001_1b7cf84d80.png",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.9016556143760681,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.9016556143760681
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.031787749379873276
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/001_internet_holdout_test_conf9017_seasonal_internet_holdout_test_Corn_maize__Common_rust__00001_1b7cf84d80.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Common_rust_/plantdoc_internet_holdout_test_Corn_rust_leaf_00004_87fb9c2d79.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8664861917495728,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8664861917495728
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04968985542654991
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/002_internet_holdout_test_conf8665_plantdoc_internet_holdout_test_Corn_rust_leaf_00004_87fb9c2d79.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00002_855b88a1bc.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8958168625831604,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8958168625831604
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.03576214239001274
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/003_train_conf8958_seasonal_train_Corn_maize__Common_rust__00002_855b88a1bc.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00015_4d07575075.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8895630240440369,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8895630240440369
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.034553032368421555
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/004_train_conf8896_seasonal_train_Corn_maize__Common_rust__00015_4d07575075.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00082_2f41f5b002.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8872405886650085,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8872405886650085
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.038736697286367416
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/005_train_conf8872_seasonal_train_Corn_maize__Common_rust__00082_2f41f5b002.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00003_0451d8e9e6.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8835211396217346,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8835211396217346
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03674158453941345
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/006_train_conf8835_seasonal_train_Corn_maize__Common_rust__00003_0451d8e9e6.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00006_694ddd86c8.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.866935670375824,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.866935670375824
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.03641139343380928
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/007_train_conf8669_seasonal_train_Corn_maize__Common_rust__00006_694ddd86c8.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00069_7770e359e2.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8602358102798462,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8602358102798462
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0599755123257637
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/008_train_conf8602_seasonal_train_Corn_maize__Common_rust__00069_7770e359e2.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Common_rust_/seasonal_train_Corn_maize__Common_rust__00058_090caf8ae7.png",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Common_rust_",
+      "predicted_class": "Corn_(maize)___Common_rust_",
+      "confidence": 0.8502305746078491,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.8502305746078491
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.04857085272669792
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___Common_rust_/009_train_conf8502_seasonal_train_Corn_maize__Common_rust__00058_090caf8ae7.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00022_8cdc26968d.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9393284320831299,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9393284320831299
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03567878529429436
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/001_internet_holdout_test_conf9393_figshare_internet_holdout_test_Corn_maize__healthy_00022_8cdc26968d.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00009_0fddbd8234.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9373373985290527,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9373373985290527
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.040324028581380844
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/002_internet_holdout_test_conf9373_figshare_internet_holdout_test_Corn_maize__healthy_00009_0fddbd8234.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00003_2d942ddaa4.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9207590222358704,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9207590222358704
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04922870919108391
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/003_internet_holdout_test_conf9208_figshare_internet_holdout_test_Corn_maize__healthy_00003_2d942ddaa4.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00044_8bbe99b98c.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9183563590049744,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9183563590049744
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04302212968468666
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/004_internet_holdout_test_conf9184_figshare_internet_holdout_test_Corn_maize__healthy_00044_8bbe99b98c.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00043_e2acc66a49.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9119729995727539,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9119729995727539
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04110605642199516
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/005_internet_holdout_test_conf9120_figshare_internet_holdout_test_Corn_maize__healthy_00043_e2acc66a49.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00003_9921fdc1c5.png",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9064664840698242,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9064664840698242
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.07058458775281906
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/006_internet_holdout_test_conf9065_seasonal_internet_holdout_test_Corn_maize__healthy_00003_9921fdc1c5.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00000_f6c7240125.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8950698971748352,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8950698971748352
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07823923975229263
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/007_internet_holdout_test_conf8951_figshare_internet_holdout_test_Corn_maize__healthy_00000_f6c7240125.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00055_bc7c23a9cc.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.893044650554657,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.893044650554657
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.06054409593343735
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/008_internet_holdout_test_conf8930_seasonal_internet_holdout_test_Corn_maize__healthy_00055_bc7c23a9cc.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00051_ee741765dd.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8909985423088074,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8909985423088074
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08129587024450302
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/009_internet_holdout_test_conf8910_figshare_internet_holdout_test_Corn_maize__healthy_00051_ee741765dd.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00048_1fef34bc75.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8882644772529602,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8882644772529602
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.0671909898519516
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/010_internet_holdout_test_conf8883_figshare_internet_holdout_test_Corn_maize__healthy_00048_1fef34bc75.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00032_cc77213bef.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8881819248199463,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8881819248199463
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06510701775550842
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/011_internet_holdout_test_conf8882_figshare_internet_holdout_test_Corn_maize__healthy_00032_cc77213bef.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00110_cb6df96120.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8843669295310974,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8843669295310974
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.07875173538923264
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/012_internet_holdout_test_conf8844_seasonal_internet_holdout_test_Corn_maize__healthy_00110_cb6df96120.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00035_2c43edbcb3.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8800748586654663,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8800748586654663
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05464448779821396
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/013_internet_holdout_test_conf8801_figshare_internet_holdout_test_Corn_maize__healthy_00035_2c43edbcb3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00095_caaf2f599c.png",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8782999515533447,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8782999515533447
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.07582966238260269
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/014_internet_holdout_test_conf8783_seasonal_internet_holdout_test_Corn_maize__healthy_00095_caaf2f599c.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00026_eef6ef0d7c.png",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8726603984832764,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8726603984832764
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.08748523145914078
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/015_internet_holdout_test_conf8727_seasonal_internet_holdout_test_Corn_maize__healthy_00026_eef6ef0d7c.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00047_c45e6f5826.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8718478679656982,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8718478679656982
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.10800006985664368
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/016_internet_holdout_test_conf8718_figshare_internet_holdout_test_Corn_maize__healthy_00047_c45e6f5826.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00018_96cfbc904b.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8653058409690857,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8653058409690857
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06351209431886673
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/017_internet_holdout_test_conf8653_figshare_internet_holdout_test_Corn_maize__healthy_00018_96cfbc904b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00001_7ba3745bfb.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8650487065315247,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8650487065315247
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08011487871408463
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/018_internet_holdout_test_conf8650_figshare_internet_holdout_test_Corn_maize__healthy_00001_7ba3745bfb.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00033_13c822fded.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8634905815124512,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8634905815124512
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06503673642873764
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/019_internet_holdout_test_conf8635_figshare_internet_holdout_test_Corn_maize__healthy_00033_13c822fded.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00015_76e4163982.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8603370189666748,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8603370189666748
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.08643519133329391
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/020_internet_holdout_test_conf8603_seasonal_internet_holdout_test_Corn_maize__healthy_00015_76e4163982.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00017_f4e4b3d9e8.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8588111400604248,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8588111400604248
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08840400725603104
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/021_internet_holdout_test_conf8588_figshare_internet_holdout_test_Corn_maize__healthy_00017_f4e4b3d9e8.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/seasonal_internet_holdout_test_Corn_maize__healthy_00065_fcab4ae3a7.png",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8586786985397339,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8586786985397339
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.11513469368219376
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/022_internet_holdout_test_conf8587_seasonal_internet_holdout_test_Corn_maize__healthy_00065_fcab4ae3a7.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00052_c3a81abf58.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8558045029640198,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8558045029640198
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08063949644565582
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/023_internet_holdout_test_conf8558_figshare_internet_holdout_test_Corn_maize__healthy_00052_c3a81abf58.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00025_46969cfb30.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.854293167591095,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.854293167591095
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.10398484766483307
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/024_internet_holdout_test_conf8543_figshare_internet_holdout_test_Corn_maize__healthy_00025_46969cfb30.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/figshare_internet_holdout_test_Corn_maize__healthy_00010_a9fbc8a7e9.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8507346510887146,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8507346510887146
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06931118667125702
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/025_internet_holdout_test_conf8507_figshare_internet_holdout_test_Corn_maize__healthy_00010_a9fbc8a7e9.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00025_fc726ccbc5.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9731153845787048,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9731153845787048
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.014741816557943821
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/026_test_conf9731_base_test_Corn_maize__healthy_00025_fc726ccbc5.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00035_3e45b5c27c.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.936640202999115,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.936640202999115
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.036786969751119614
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/027_test_conf9366_base_test_Corn_maize__healthy_00035_3e45b5c27c.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00028_5ef454f11f.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9294355511665344,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9294355511665344
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03654411807656288
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/028_test_conf9294_figshare_test_Corn_maize__healthy_00028_5ef454f11f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00014_a84b25999b.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9278795719146729,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9278795719146729
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.031899526715278625
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/029_test_conf9279_base_test_Corn_maize__healthy_00014_a84b25999b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00019_cdb362b53c.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9258176684379578,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9258176684379578
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04964781925082207
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/030_test_conf9258_figshare_test_Corn_maize__healthy_00019_cdb362b53c.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00012_7c2c7e223d.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9216094017028809,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9216094017028809
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.033569060266017914
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/031_test_conf9216_figshare_test_Corn_maize__healthy_00012_7c2c7e223d.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00015_4b888b29ca.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.918086051940918,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.918086051940918
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.050159793347120285
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/032_test_conf9181_figshare_test_Corn_maize__healthy_00015_4b888b29ca.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00034_2ad3156755.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9090936183929443,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9090936183929443
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06215951219201088
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/033_test_conf9091_base_test_Corn_maize__healthy_00034_2ad3156755.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/seasonal_test_Corn_maize__healthy_00029_d0f6d22893.png",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.908871591091156,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.908871591091156
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.04883798211812973
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/034_test_conf9089_seasonal_test_Corn_maize__healthy_00029_d0f6d22893.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00037_7e3dccc8fb.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.9040741920471191,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.9040741920471191
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04397357255220413
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/035_test_conf9041_base_test_Corn_maize__healthy_00037_7e3dccc8fb.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/seasonal_test_Corn_maize__healthy_00026_e22ab46b66.png",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8986460566520691,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8986460566520691
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0834454894065857
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/036_test_conf8986_seasonal_test_Corn_maize__healthy_00026_e22ab46b66.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/seasonal_test_Corn_maize__healthy_00011_ebe20c74a9.png",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8954725861549377,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8954725861549377
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.07636518776416779
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/037_test_conf8955_seasonal_test_Corn_maize__healthy_00011_ebe20c74a9.png"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00036_019c6e8c4f.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8943697810173035,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8943697810173035
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.04931490495800972
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/038_test_conf8944_base_test_Corn_maize__healthy_00036_019c6e8c4f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/seasonal_test_Corn_maize__healthy_00047_3b42fabbee.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8923969268798828,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8923969268798828
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.08019004762172699
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/039_test_conf8924_seasonal_test_Corn_maize__healthy_00047_3b42fabbee.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00025_cf51b2c116.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8916122913360596,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8916122913360596
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06037025526165962
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/040_test_conf8916_figshare_test_Corn_maize__healthy_00025_cf51b2c116.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00018_9b8eefa20b.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8895592093467712,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8895592093467712
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.03672172129154205
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/041_test_conf8896_base_test_Corn_maize__healthy_00018_9b8eefa20b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00018_d73ec0e065.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8807884454727173,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8807884454727173
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.05728769302368164
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/042_test_conf8808_figshare_test_Corn_maize__healthy_00018_d73ec0e065.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00005_f1ea19b2da.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8797905445098877,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8797905445098877
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.08555726706981659
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/043_test_conf8798_base_test_Corn_maize__healthy_00005_f1ea19b2da.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00023_e1d9507a8c.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8788729906082153,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8788729906082153
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07918344438076019
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/044_test_conf8789_figshare_test_Corn_maize__healthy_00023_e1d9507a8c.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00010_5e450e75ca.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8774683475494385,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8774683475494385
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06707631796598434
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/045_test_conf8775_figshare_test_Corn_maize__healthy_00010_5e450e75ca.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00033_707913919a.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8743391633033752,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8743391633033752
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.060742586851119995
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/046_test_conf8743_figshare_test_Corn_maize__healthy_00033_707913919a.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00011_0b40d8f564.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8688979148864746,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8688979148864746
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07588385790586472
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/047_test_conf8689_figshare_test_Corn_maize__healthy_00011_0b40d8f564.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00013_e60652fee0.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8664025664329529,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8664025664329529
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.06904303282499313
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/048_test_conf8664_figshare_test_Corn_maize__healthy_00013_e60652fee0.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/base_test_Corn_maize__healthy_00021_4e7d3eea99.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8658007383346558,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8658007383346558
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07601378858089447
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/049_test_conf8658_base_test_Corn_maize__healthy_00021_4e7d3eea99.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/figshare_test_Corn_maize__healthy_00004_99441891b3.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___healthy",
+      "predicted_class": "Corn_(maize)___healthy",
+      "confidence": 0.8562913537025452,
+      "top_2": [
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.8562913537025452
+        },
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.07420109957456589
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/Corn_(maize)___healthy/050_test_conf8563_figshare_test_Corn_maize__healthy_00004_99441891b3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00019_df4b6a8126.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9982397556304932,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9982397556304932
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0006162631325423717
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/001_internet_holdout_test_conf9982_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00019_df4b6a8126.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00036_c9c8eff5e7.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9971389770507812,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9971389770507812
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0017043831758201122
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/002_internet_holdout_test_conf9971_early_detection_internet_holdout_test_unknown_unclassified_00036_c9c8eff5e7.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00080_cf5dab9090.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9970422983169556,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9970422983169556
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0014837053604424
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/003_internet_holdout_test_conf9970_imagenette_internet_holdout_test_00080_cf5dab9090.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00081_cae06eab53.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9968622922897339,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9968622922897339
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0019613353069871664
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/004_internet_holdout_test_conf9969_imagenette_internet_holdout_test_00081_cae06eab53.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00053_ff52ad03cf.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9964861273765564,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9964861273765564
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.001732983742840588
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/005_internet_holdout_test_conf9965_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00053_ff52ad03cf.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00013_13db951f92.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9961815476417542,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9961815476417542
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.001154723227955401
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/006_internet_holdout_test_conf9962_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00013_13db951f92.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00026_6e7888bef0.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.996051013469696,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.996051013469696
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0013232063502073288
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/007_internet_holdout_test_conf9961_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00026_6e7888bef0.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00017_eed3fba581.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9957966208457947,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9957966208457947
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0020764595828950405
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/008_internet_holdout_test_conf9958_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00017_eed3fba581.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00084_509ca3c88b.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.995641827583313,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.995641827583313
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0015903469175100327
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/009_internet_holdout_test_conf9956_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00084_509ca3c88b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00055_f41a8e13df.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9950329065322876,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9950329065322876
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0025984288658946753
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/010_internet_holdout_test_conf9950_early_detection_internet_holdout_test_unknown_unclassified_00055_f41a8e13df.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00130_f3686270f6.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9949019551277161,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9949019551277161
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0022905634250491858
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/011_internet_holdout_test_conf9949_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00130_f3686270f6.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00079_251409efda.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9948007464408875,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9948007464408875
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.002219320507720113
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/012_internet_holdout_test_conf9948_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00079_251409efda.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00126_ad9c49fe10.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9945671558380127,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9945671558380127
+        },
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.0017831784207373857
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/013_internet_holdout_test_conf9946_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00126_ad9c49fe10.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00074_e434e7723a.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9943111538887024,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9943111538887024
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0026121579576283693
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/014_internet_holdout_test_conf9943_imagenette_internet_holdout_test_00074_e434e7723a.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00027_af86ea27ca.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9940359592437744,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9940359592437744
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.001865724683739245
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/015_internet_holdout_test_conf9940_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00027_af86ea27ca.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00128_cc91d5c665.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9939611554145813,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9939611554145813
+        },
+        {
+          "class_name": "Corn_(maize)___Common_rust_",
+          "probability": 0.002147950232028961
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/016_internet_holdout_test_conf9940_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00128_cc91d5c665.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00066_e79812c8da.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9938968420028687,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9938968420028687
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.001957337837666273
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/017_internet_holdout_test_conf9939_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00066_e79812c8da.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00135_2c2df8af71.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9937276244163513,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9937276244163513
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.00198407843708992
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/018_internet_holdout_test_conf9937_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00135_2c2df8af71.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00119_73ca068684.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9935910701751709,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9935910701751709
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0030108417849987745
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/019_internet_holdout_test_conf9936_imagenette_internet_holdout_test_00119_73ca068684.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00037_7ca0d7acbf.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.993558943271637,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.993558943271637
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0028599898796528578
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/020_internet_holdout_test_conf9936_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00037_7ca0d7acbf.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00117_bc885f8198.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9933072328567505,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9933072328567505
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0022800725419074297
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/021_internet_holdout_test_conf9933_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00117_bc885f8198.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00007_92d00a2676.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9932746887207031,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9932746887207031
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0019609679002314806
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/022_internet_holdout_test_conf9933_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00007_92d00a2676.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00089_710907afd5.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.993053674697876,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.993053674697876
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.003862679237499833
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/023_internet_holdout_test_conf9931_early_detection_internet_holdout_test_unknown_unclassified_00089_710907afd5.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00027_8285807da7.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9929990768432617,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9929990768432617
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.003287200815975666
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/024_internet_holdout_test_conf9930_imagenette_internet_holdout_test_00027_8285807da7.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00091_b045b979ba.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9925276041030884,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9925276041030884
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0037977448664605618
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/025_internet_holdout_test_conf9925_imagenette_internet_holdout_test_00091_b045b979ba.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00058_58a84d7afd.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9924914240837097,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9924914240837097
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0038811867125332355
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/026_internet_holdout_test_conf9925_early_detection_internet_holdout_test_unknown_unclassified_00058_58a84d7afd.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00031_822027f48e.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9923654794692993,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9923654794692993
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.003938618116080761
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/027_internet_holdout_test_conf9924_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00031_822027f48e.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00006_2a978fbea3.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9920310378074646,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9920310378074646
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.004979259800165892
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/028_internet_holdout_test_conf9920_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00006_2a978fbea3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00054_82a503606e.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9916666150093079,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9916666150093079
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.005516774486750364
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/029_internet_holdout_test_conf9917_early_detection_internet_holdout_test_unknown_unclassified_00054_82a503606e.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00033_ed01516488.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9916040897369385,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9916040897369385
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.002916984725743532
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/030_internet_holdout_test_conf9916_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00033_ed01516488.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00023_56ed7cfeba.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9914916753768921,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9914916753768921
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.0026971243787556887
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/031_internet_holdout_test_conf9915_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00023_56ed7cfeba.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00072_2a32ab7c0e.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9914173483848572,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9914173483848572
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.004461511969566345
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/032_internet_holdout_test_conf9914_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00072_2a32ab7c0e.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00118_ddc7a03ff7.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9913585186004639,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9913585186004639
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.0025147940032184124
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/033_internet_holdout_test_conf9914_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00118_ddc7a03ff7.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00103_84154e6d41.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9912697672843933,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9912697672843933
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0037337683606892824
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/034_internet_holdout_test_conf9913_imagenette_internet_holdout_test_00103_84154e6d41.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00115_9c89193441.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9908891916275024,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9908891916275024
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0032807982061058283
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/035_internet_holdout_test_conf9909_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00115_9c89193441.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00022_25b72b9eca.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9908682703971863,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9908682703971863
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.0028526419773697853
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/036_internet_holdout_test_conf9909_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00022_25b72b9eca.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00139_d3f509968a.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9906885027885437,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9906885027885437
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.0031903795897960663
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/037_internet_holdout_test_conf9907_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00139_d3f509968a.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00010_e5e0afe6be.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9905762076377869,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9905762076377869
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.003845177823677659
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/038_internet_holdout_test_conf9906_imagenette_internet_holdout_test_00010_e5e0afe6be.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00035_a4bc4cb112.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.990321934223175,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.990321934223175
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.006475532427430153
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/039_internet_holdout_test_conf9903_early_detection_internet_holdout_test_unknown_unclassified_00035_a4bc4cb112.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00105_338366d76f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9902476668357849,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9902476668357849
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.004015554673969746
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/040_internet_holdout_test_conf9902_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00105_338366d76f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00059_9a6db23a36.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9901705384254456,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9901705384254456
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.005444475915282965
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/041_internet_holdout_test_conf9902_imagenette_internet_holdout_test_00059_9a6db23a36.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00069_a6a3916164.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9901456236839294,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9901456236839294
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.007895924150943756
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/042_internet_holdout_test_conf9901_early_detection_internet_holdout_test_unknown_unclassified_00069_a6a3916164.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00081_50cd24e78f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9901039004325867,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9901039004325867
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.002873360877856612
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/043_internet_holdout_test_conf9901_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00081_50cd24e78f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00034_0065f25f1f.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9897938966751099,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9897938966751099
+        },
+        {
+          "class_name": "Corn_(maize)___Northern_Leaf_Blight",
+          "probability": 0.003530849702656269
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/044_internet_holdout_test_conf9898_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00034_0065f25f1f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00052_0fd9abe499.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9896604418754578,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9896604418754578
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.006335287820547819
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/045_internet_holdout_test_conf9897_imagenette_internet_holdout_test_00052_0fd9abe499.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00074_b99ca790a2.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9895663261413574,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9895663261413574
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.006635781843215227
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/046_internet_holdout_test_conf9896_early_detection_internet_holdout_test_unknown_unclassified_00074_b99ca790a2.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/imagenette_internet_holdout_test_00068_398847cd46.jpeg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9894651770591736,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9894651770591736
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.0057837641797959805
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/047_internet_holdout_test_conf9895_imagenette_internet_holdout_test_00068_398847cd46.jpeg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00143_d2beab75f1.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9891711473464966,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9891711473464966
+        },
+        {
+          "class_name": "Corn_(maize)___healthy",
+          "probability": 0.004426999483257532
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/048_internet_holdout_test_conf9892_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00143_d2beab75f1.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00107_88b4e19120.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9891295433044434,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9891295433044434
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.004919347353279591
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/049_internet_holdout_test_conf9891_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00107_88b4e19120.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00119_eda06605be.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "unknown_unclassified",
+      "predicted_class": "unknown_unclassified",
+      "confidence": 0.9891283512115479,
+      "top_2": [
+        {
+          "class_name": "unknown_unclassified",
+          "probability": 0.9891283512115479
+        },
+        {
+          "class_name": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+          "probability": 0.005978915840387344
+        }
+      ],
+      "copied_path": "Dataset Folder/high accuracy/unknown_unclassified/050_internet_holdout_test_conf9891_nitrogen_deficiency_internet_holdout_test_unknown_unclassified_00119_eda06605be.jpg"
+    }
+  ],
+  "skipped": [
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___healthy/early_detection_internet_holdout_test_Corn_maize__healthy_00003_1b309161e0.jpg",
+      "reason": "image file is truncated (29 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00004_97ad361a53.jpg",
+      "reason": "image file is truncated (41 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00017_ea60db803a.jpg",
+      "reason": "image file is truncated (24 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00027_597a9b2146.jpg",
+      "reason": "image file is truncated (11 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/internet_holdout_test/unknown_unclassified/early_detection_internet_holdout_test_unknown_unclassified_00034_45280a82a5.jpg",
+      "reason": "image file is truncated (26 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/early_detection_test_Corn_maize__healthy_00017_c4c0d47a13.jpg",
+      "reason": "image file is truncated (63 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/early_detection_test_Corn_maize__healthy_00019_b86bec7ea8.jpg",
+      "reason": "image file is truncated (4 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/early_detection_test_Corn_maize__healthy_00023_1b2c2d0463.jpg",
+      "reason": "image file is truncated (38 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/Corn_(maize)___healthy/early_detection_test_Corn_maize__healthy_00024_2260e7e565.jpg",
+      "reason": "image file is truncated (30 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/unknown_unclassified/early_detection_test_unknown_unclassified_00007_f98befb9aa.jpg",
+      "reason": "image file is truncated (21 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/unknown_unclassified/early_detection_test_unknown_unclassified_00011_8f9bde40f2.jpg",
+      "reason": "image file is truncated (70 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/test/unknown_unclassified/early_detection_test_unknown_unclassified_00040_88d636cd4a.jpg",
+      "reason": "image file is truncated (41 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/valid/Corn_(maize)___healthy/early_detection_valid_Corn_maize__healthy_00006_74407aeb11.jpg",
+      "reason": "image file is truncated (3 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/valid/Corn_(maize)___healthy/early_detection_valid_Corn_maize__healthy_00016_f38964d27c.jpg",
+      "reason": "image file is truncated (4 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/valid/Corn_(maize)___healthy/early_detection_valid_Corn_maize__healthy_00021_991f51eb05.jpg",
+      "reason": "image file is truncated (22 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/valid/unknown_unclassified/early_detection_valid_unknown_unclassified_00019_66be1cbd91.jpg",
+      "reason": "image file is truncated (34 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/valid/unknown_unclassified/early_detection_valid_unknown_unclassified_00039_e07e07cc91.jpg",
+      "reason": "image file is truncated (16 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/early_detection_train_Corn_maize__Northern_Leaf_Blight_00055_9631ec6d51.jpg",
+      "reason": "image file is truncated (79 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/early_detection_train_Corn_maize__Northern_Leaf_Blight_00070_a8f1ebc79f.jpg",
+      "reason": "image file is truncated (41 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00089_0b3deed2d1.jpg",
+      "reason": "image file is truncated (33 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00110_b83d1c192b.jpg",
+      "reason": "image file is truncated (43 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00148_309a0e47db.jpg",
+      "reason": "image file is truncated (43 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00178_733a377981.jpg",
+      "reason": "image file is truncated (14 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00231_8691623e0f.jpg",
+      "reason": "image file is truncated (60 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/Corn_(maize)___healthy/early_detection_train_Corn_maize__healthy_00297_c6cb0deb3b.jpg",
+      "reason": "image file is truncated (4 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00026_5fa9216ad3.jpg",
+      "reason": "image file is truncated (37 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00118_3401dbb7cf.jpg",
+      "reason": "image file is truncated (31 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00162_e3d719bf67.jpg",
+      "reason": "image file is truncated (42 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00164_a8fcfc6526.jpg",
+      "reason": "image file is truncated (2 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00180_767b87760f.jpg",
+      "reason": "image file is truncated (27 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00196_93e6a264ab.jpg",
+      "reason": "image file is truncated (48 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00199_097ed24e4a.jpg",
+      "reason": "image file is truncated (5 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00208_a24c6db343.jpg",
+      "reason": "image file is truncated (0 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00210_ea24a89609.jpg",
+      "reason": "image file is truncated (4 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00271_5424c941c9.jpg",
+      "reason": "image file is truncated (46 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00287_5e3b8e00ce.jpg",
+      "reason": "image file is truncated (14 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00290_64fe6d6e4a.jpg",
+      "reason": "image file is truncated (25 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00299_b26d093fcc.jpg",
+      "reason": "image file is truncated (18 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00315_da9cc97af4.jpg",
+      "reason": "image file is truncated (25 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00378_b52d721e4a.jpg",
+      "reason": "image file is truncated (78 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00389_d5262ec138.jpg",
+      "reason": "image file is truncated (51 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00463_b191ff2fc1.jpg",
+      "reason": "image file is truncated (52 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00510_e0c1b343d9.jpg",
+      "reason": "image file is truncated (68 bytes not processed)"
+    },
+    {
+      "path": "/Users/mbp-m1-t003/repos/maize-detection/Dataset Folder/maize_dataset_v3/train/unknown_unclassified/early_detection_train_unknown_unclassified_00515_f66cf68fa8.jpg",
+      "reason": "image file is truncated (40 bytes not processed)"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "purpose": "Best available correctly predicted Northern Leaf Blight examples below the strict 85% confidence threshold.",
+  "strict_high_accuracy_note": "The shipped model has zero correctly predicted NLB images at >= 0.85 confidence across maize_dataset_v3.",
+  "best_correct_nlb_confidence": 0.7748393416404724,
+  "records": [
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00046_8b8a1ad433.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7748393416404724,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/001_train_conf7748_base_train_Corn_maize__Northern_Leaf_Blight_00046_8b8a1ad433.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___Northern_Leaf_Blight/figshare_test_Corn_maize__Northern_Leaf_Blight_00004_2b92f7f7d3.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7370936274528503,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/002_test_conf7371_figshare_test_Corn_maize__Northern_Leaf_Blight_00004_2b92f7f7d3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00483_3ac22e6397.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7199848294258118,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/003_train_conf7200_base_train_Corn_maize__Northern_Leaf_Blight_00483_3ac22e6397.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00007_e8cc4eaad3.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7191929817199707,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/004_train_conf7192_base_train_Corn_maize__Northern_Leaf_Blight_00007_e8cc4eaad3.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/internet_holdout_test/Corn_(maize)___Northern_Leaf_Blight/figshare_internet_holdout_test_Corn_maize__Northern_Leaf_Blight_00017_247f2ad8a0.jpg",
+      "source_split": "internet_holdout_test",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7145101428031921,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/005_internet_holdout_test_conf7145_figshare_internet_holdout_test_Corn_maize__Northern_Leaf_Blight_00017_247f2ad8a0.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00466_7eac7f6a15.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7057565450668335,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/006_train_conf7058_base_train_Corn_maize__Northern_Leaf_Blight_00466_7eac7f6a15.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00198_435d9c3467.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.7017330527305603,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/007_train_conf7017_base_train_Corn_maize__Northern_Leaf_Blight_00198_435d9c3467.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00032_fc1f77b15b.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6916109919548035,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/008_train_conf6916_base_train_Corn_maize__Northern_Leaf_Blight_00032_fc1f77b15b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00312_9af971444b.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6910302042961121,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/009_train_conf6910_base_train_Corn_maize__Northern_Leaf_Blight_00312_9af971444b.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/figshare_train_Corn_maize__Northern_Leaf_Blight_00237_de91933c50.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6907166242599487,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/010_train_conf6907_figshare_train_Corn_maize__Northern_Leaf_Blight_00237_de91933c50.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00008_db334442ac.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6906039118766785,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/011_train_conf6906_base_train_Corn_maize__Northern_Leaf_Blight_00008_db334442ac.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00026_e8922aadae.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6883918046951294,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/012_train_conf6884_base_train_Corn_maize__Northern_Leaf_Blight_00026_e8922aadae.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00075_0572522a87.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6878232359886169,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/013_train_conf6878_base_train_Corn_maize__Northern_Leaf_Blight_00075_0572522a87.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00154_33d1d9c47f.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6875115036964417,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/014_train_conf6875_base_train_Corn_maize__Northern_Leaf_Blight_00154_33d1d9c47f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00241_5ee950b127.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.686635434627533,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/015_train_conf6866_base_train_Corn_maize__Northern_Leaf_Blight_00241_5ee950b127.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/figshare_train_Corn_maize__Northern_Leaf_Blight_00174_bf0380fcb9.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6802449822425842,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/016_train_conf6802_figshare_train_Corn_maize__Northern_Leaf_Blight_00174_bf0380fcb9.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/test/Corn_(maize)___Northern_Leaf_Blight/figshare_test_Corn_maize__Northern_Leaf_Blight_00014_45128ec4f0.jpg",
+      "source_split": "test",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6775586009025574,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/017_test_conf6776_figshare_test_Corn_maize__Northern_Leaf_Blight_00014_45128ec4f0.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00334_3c6185e83f.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6738561987876892,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/018_train_conf6739_base_train_Corn_maize__Northern_Leaf_Blight_00334_3c6185e83f.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00452_a476d904fc.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6735212206840515,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/019_train_conf6735_base_train_Corn_maize__Northern_Leaf_Blight_00452_a476d904fc.jpg"
+    },
+    {
+      "source_path": "Dataset Folder/maize_dataset_v3/train/Corn_(maize)___Northern_Leaf_Blight/base_train_Corn_maize__Northern_Leaf_Blight_00206_211a6db5d8.jpg",
+      "source_split": "train",
+      "true_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "predicted_class": "Corn_(maize)___Northern_Leaf_Blight",
+      "confidence": 0.6728199124336243,
+      "copied_path": "Dataset Folder/high accuracy/_best_available_below_85/Corn_(maize)___Northern_Leaf_Blight/020_train_conf6728_base_train_Corn_maize__Northern_Leaf_Blight_00206_211a6db5d8.jpg"
+    }
+  ]
+}
