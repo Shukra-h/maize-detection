@@ -6,7 +6,7 @@ import AuthControls from './components/AuthControls'
 import AuthModal, { type AuthMode } from './components/AuthModal'
 import LandingPage from './components/LandingPage'
 import LanguageToggle from './components/LanguageToggle'
-import Demo from './components/Test'
+import Demo from './components/app'
 import { useI18n } from './components/i18n'
 import { isSupabaseConfigured, supabase } from './components/supabaseClient'
 

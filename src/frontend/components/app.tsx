@@ -57,6 +57,12 @@ const getConfidenceColor = (confidence: number) => {
   return "red.500";
 };
 
+const getConfidenceTone = (confidence: number) => {
+  if (confidence >= 0.8) return "high";
+  if (confidence >= 0.6) return "medium";
+  return "low";
+};
+
 const createHistoryId = () =>
   `${Date.now()}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 
@@ -267,32 +273,14 @@ const Demo = () => {
 
   return (
     <Box
+      className="detector-workspace"
       minH="100vh"
       px={{ base: 3, sm: 4, md: 8 }}
       py={{ base: 4, sm: 6, md: 10 }}
-      bg="linear-gradient(160deg, #f2f8f0 0%, #eef6fa 52%, #ffffff 100%)"
     >
-      <VStack gap={{ base: 4, md: 6 }} maxW="1100px" mx="auto" align="stretch">
+      <VStack className="detector-shell" gap={{ base: 4, md: 6 }} maxW="1120px" mx="auto" align="stretch">
         <Box
-          border="1px solid"
-          borderColor="blackAlpha.100"
-          bg="whiteAlpha.880"
-          borderRadius={{ base: "xl", md: "2xl" }}
-          p={{ base: 4, sm: 5, md: 8 }}
-          boxShadow="0 8px 32px rgba(16, 24, 40, 0.08)"
-        >
-          <Text fontSize="xs" letterSpacing={{ base: "0.12em", md: "0.16em" }} textTransform="uppercase" color="green.700" mb={2}>
-            {t("detector.heroKicker")}
-          </Text>
-          <Text fontSize={{ base: "xl", sm: "2xl", md: "4xl" }} fontWeight="bold" lineHeight="1.05" color="gray.900">
-            {t("detector.heroTitle")}
-          </Text>
-          <Text mt={3} maxW="800px" color="gray.700" fontSize={{ base: "sm", md: "md" }}>
-            {t("detector.heroCopy")}
-          </Text>
-        </Box>
-
-        <Box
+          className="detector-grid"
           display="grid"
           gridTemplateColumns={{ base: "1fr", lg: "1.1fr 1fr" }}
           gap={{ base: 4, md: 6 }}
@@ -304,20 +292,16 @@ const Demo = () => {
             display={{ base: "contents", lg: "flex" }}
           >
             <VStack
+              className="detector-panel detector-panel--upload"
               align="stretch"
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
-              border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
-              borderRadius="xl"
-              boxShadow="sm"
               order={{ base: 1, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <Text className="detector-panel-title">
                 {t("detector.uploadTitle")}
               </Text>
-              <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
+              <Stack className="detector-file-row" direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }}>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -326,32 +310,29 @@ const Demo = () => {
                   style={{ display: "none" }}
                 />
                 <Button
+                  className="detector-secondary-action"
                   variant="outline"
-                  colorScheme="green"
-                  borderWidth="2px"
                   onClick={() => fileInputRef.current?.click()}
                   w={{ base: "100%", sm: "auto" }}
                 >
                   {t("detector.chooseFile")}
                 </Button>
-                <Text fontSize="sm" color="gray.600" lineClamp="1" minW={0}>
+                <Text className="detector-file-name" lineClamp="1" minW={0}>
                   {selectedFileName || t("detector.noFile")}
                 </Text>
               </Stack>
 
               <Box
+                className={`detector-specimen-tray${previewUrl ? " detector-specimen-tray--filled" : ""}`}
                 minH={{ base: "220px", sm: "260px", md: "280px" }}
-                borderRadius="lg"
-                border="1px dashed"
-                borderColor="gray.300"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 overflow="hidden"
-                bg="gray.50"
               >
                 {previewUrl ? (
                   <Image
+                    className="detector-specimen-image"
                     src={previewUrl}
                     alt={t("detector.previewAlt")}
                     objectFit="cover"
@@ -360,15 +341,15 @@ const Demo = () => {
                     maxH={{ base: "320px", md: "420px" }}
                   />
                 ) : (
-                  <Text color="gray.500" fontSize="sm" textAlign="center" px={6}>
+                  <Text className="detector-empty-copy" textAlign="center" px={6}>
                     {t("detector.previewEmpty")}
                   </Text>
                 )}
               </Box>
 
-              <Stack direction={{ base: "column", sm: "row" }} gap={3}>
+              <Stack className="detector-action-row" direction={{ base: "column", sm: "row" }} gap={3}>
                 <Button
-                  colorScheme="green"
+                  className="detector-primary-action"
                   onClick={handlePredict}
                   disabled={!image || loading || isHistoryPreview}
                   loading={loading}
@@ -378,6 +359,7 @@ const Demo = () => {
                   {t("detector.analyze")}
                 </Button>
                 <Button
+                  className="detector-secondary-action"
                   variant="outline"
                   onClick={handleReset}
                   disabled={!image && !result && !error}
@@ -388,24 +370,24 @@ const Demo = () => {
               </Stack>
 
               {loading && (
-                <HStack gap={2} color="gray.700" align="start">
+                <HStack className="detector-status-note" gap={2} align="start">
                   <Spinner size="sm" color="green.600" />
-                  <Text fontSize="sm" lineHeight="1.4">
+                  <Text>
                     {t("detector.runningInference")}
                   </Text>
                 </HStack>
               )}
 
               {isHistoryPreview && !loading && (
-                <Box borderRadius="md" bg="orange.50" border="1px solid" borderColor="orange.100" p={3}>
-                  <Text fontSize="sm" color="gray.700" lineHeight="1.5">
+                <Box className="detector-note" p={3}>
+                  <Text>
                     {t("detector.historyPreview")}
                   </Text>
                 </Box>
               )}
 
               {error && (
-                <Alert.Root status="error" borderRadius="md">
+                <Alert.Root className="detector-alert" status="error" borderRadius="md">
                   <Alert.Indicator />
                   <Alert.Content>
                     <Alert.Title>{t("detector.predictionFailed")}</Alert.Title>
@@ -416,23 +398,19 @@ const Demo = () => {
             </VStack>
 
             <VStack
+              className="detector-panel detector-panel--guidance"
               align="stretch"
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
-              border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
-              borderRadius="xl"
-              boxShadow="sm"
               order={{ base: 3, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <Text className="detector-panel-title">
                 {t("detector.guidanceTitle")}
               </Text>
 
               {!guidance && !loading && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box className="detector-empty-state" p={5}>
+                  <Text>
                     {t("detector.guidanceEmpty")}
                   </Text>
                 </Box>
@@ -441,31 +419,25 @@ const Demo = () => {
               {guidance && (
                 <VStack align="stretch" gap={4}>
                   <Box
+                    className="detector-guidance-card detector-guidance-card--treatment"
                     p={4}
-                    borderRadius="lg"
-                    bg="orange.50"
-                    border="1px solid"
-                    borderColor="orange.100"
                   >
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="orange.700">
+                    <Text className="detector-mini-label">
                       {t("detector.treatment")}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                    <Text className="detector-guidance-copy" mt={2}>
                       {guidance.treatment}
                     </Text>
                   </Box>
 
                   <Box
+                    className="detector-guidance-card detector-guidance-card--prevention"
                     p={4}
-                    borderRadius="lg"
-                    bg="blue.50"
-                    border="1px solid"
-                    borderColor="blue.100"
                   >
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="blue.700">
+                    <Text className="detector-mini-label">
                       {t("detector.prevention")}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.6">
+                    <Text className="detector-guidance-copy" mt={2}>
                       {guidance.prevention}
                     </Text>
                   </Box>
@@ -476,23 +448,19 @@ const Demo = () => {
 
           <VStack gap={{ base: 4, md: 6 }} align="stretch" display={{ base: "contents", lg: "flex" }}>
             <VStack
+              className="detector-panel detector-panel--result"
               align="stretch"
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
-              border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
-              borderRadius="xl"
-              boxShadow="sm"
               order={{ base: 2, lg: 0 }}
             >
-              <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <Text className="detector-panel-title">
                 {t("detector.resultTitle")}
               </Text>
 
               {!result && !loading && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box className="detector-empty-state" p={5}>
+                  <Text>
                     {t("detector.resultEmpty")}
                   </Text>
                 </Box>
@@ -500,23 +468,23 @@ const Demo = () => {
 
               {result && (
                 <VStack align="stretch" gap={4}>
-                  <Box p={4} borderRadius="lg" bg="green.50" border="1px solid" borderColor="green.100">
-                    <Text fontSize="xs" textTransform="uppercase" letterSpacing="0.14em" color="green.700">
+                  <Box className={`detector-primary-result detector-confidence--${getConfidenceTone(result.confidence)}`} p={4}>
+                    <Text className="detector-mini-label">
                       {t("detector.primaryDetection")}
                     </Text>
-                    <Text mt={1} fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="gray.900">
+                    <Text className="detector-result-title" mt={1}>
                       {guidance?.title || topDetail?.title || translateClassLabel(topLabel, language)}
                     </Text>
-                    <Text mt={2} fontSize="sm" color="gray.700">
+                    <Text className="detector-result-description" mt={2}>
                       {guidance?.description || topDetail?.description || t("detector.detectedClass")}
                     </Text>
-                    <Text mt={3} fontSize="md" fontWeight="semibold" color={getConfidenceColor(result.confidence)}>
+                    <Text className="detector-confidence-line" mt={3} color={getConfidenceColor(result.confidence)}>
                       {t("detector.confidence")}: {(result.confidence * 100).toFixed(1)}%
                     </Text>
                   </Box>
 
                   <Box>
-                    <Text fontSize="sm" color="gray.700" mb={2}>
+                    <Text className="detector-subtitle" mb={2}>
                       {t("detector.allPredictions")}
                     </Text>
                     <VStack gap={2} align="stretch">
@@ -529,26 +497,22 @@ const Demo = () => {
 
                           return (
                             <Box
+                              className={`detector-probability-row${isTop ? " is-top" : ""}`}
                               key={className}
                               p={3}
-                              borderRadius="md"
-                              border="1px solid"
-                              borderColor={isTop ? "green.200" : "gray.200"}
-                              bg={isTop ? "green.50" : "gray.50"}
                             >
                               <Stack direction={{ base: "column", sm: "row" }} justify="space-between" mb={2} gap={1}>
-                                <Text fontSize="sm" fontWeight={isTop ? "semibold" : "medium"} color="gray.800" lineHeight="1.3">
+                                <Text className="detector-probability-label" fontWeight={isTop ? "semibold" : "medium"}>
                                   {label}
                                 </Text>
-                                <Text fontSize="sm" color="gray.700" whiteSpace="nowrap">
+                                <Text className="detector-probability-value" whiteSpace="nowrap">
                                   {(probability * 100).toFixed(1)}%
                                 </Text>
                               </Stack>
-                              <Box h="6px" borderRadius="full" bg="gray.200" overflow="hidden">
+                              <Box className="detector-probability-track" h="6px" overflow="hidden">
                                 <Box
+                                  className="detector-probability-fill"
                                   h="100%"
-                                  borderRadius="full"
-                                  bg={isTop ? "green.500" : "blue.400"}
                                   w={width}
                                 />
                               </Box>
@@ -562,39 +526,35 @@ const Demo = () => {
             </VStack>
 
             <VStack
+              className="detector-panel detector-panel--history"
               align="stretch"
               gap={{ base: 3, md: 4 }}
               p={{ base: 3, sm: 4, md: 6 }}
-              border="1px solid"
-              borderColor="blackAlpha.100"
-              bg="white"
-              borderRadius="xl"
-              boxShadow="sm"
               order={{ base: 4, lg: 0 }}
             >
-              <HStack>
-                <Text fontSize={{ base: "md", md: "lg" }} fontWeight="semibold" color="gray.800">
+              <HStack className="detector-history-heading">
+                <Text className="detector-panel-title">
                   {t("detector.historyTitle")}
                 </Text>
-                <span><Text fontWeight={"extralight"} fontSize={"xs"}>{t("detector.historyHint")}</Text></span>
+                <span><Text className="detector-history-hint">{t("detector.historyHint")}</Text></span>
               </HStack>
               {historyItems.length > 0 && (
-                <Text fontSize={{ base: "sm", md: "md" }} as="span" fontWeight="light">
+                <Text className="detector-history-count" as="span">
                   {historyItems.length} {t("detector.items")}
                 </Text>
               )}
 
               {historyLoading && (
-                <HStack gap={2} color="gray.700" align="start">
+                <HStack className="detector-status-note" gap={2} align="start">
                   <Spinner size="sm" color="green.600" />
-                  <Text fontSize="sm" lineHeight="1.4">
+                  <Text>
                     {t("detector.loadingHistory")}
                   </Text>
                 </HStack>
               )}
 
               {historyError && (
-                <Alert.Root status="warning" borderRadius="md">
+                <Alert.Root className="detector-alert" status="warning" borderRadius="md">
                   <Alert.Indicator />
                   <Alert.Content>
                     <Alert.Title>{t("detector.historyUnavailable")}</Alert.Title>
@@ -604,8 +564,8 @@ const Demo = () => {
               )}
 
               {!historyLoading && !historyItems.length && !historyError && (
-                <Box borderRadius="lg" bg="gray.50" p={5}>
-                  <Text fontSize="sm" color="gray.600">
+                <Box className="detector-empty-state" p={5}>
+                  <Text>
                     {t("detector.historyEmpty")}
                   </Text>
                 </Box>
@@ -624,6 +584,7 @@ const Demo = () => {
 
                       return (
                         <Box
+                          className="detector-history-item"
                           key={item.id}
                           textAlign="left"
                           role="button"
@@ -636,24 +597,15 @@ const Demo = () => {
                             }
                           }}
                           p={3}
-                          borderRadius="lg"
-                          border="1px solid"
-                          borderColor="gray.200"
-                          bg="gray.50"
                           cursor="pointer"
-                          transition="all 0.2s ease"
-                          _hover={{ borderColor: "green.200", bg: "white" }}
                         >
                           <Stack direction="row" gap={3} align="start">
                             <Box
+                              className="detector-history-thumb"
                               flexShrink={0}
                               w={{ base: "76px", sm: "92px" }}
                               h={{ base: "76px", sm: "92px" }}
-                              borderRadius="md"
                               overflow="hidden"
-                              bg="gray.100"
-                              border="1px solid"
-                              borderColor="gray.200"
                             >
                               <Image
                                 src={item.previewUrl}
@@ -667,10 +619,10 @@ const Demo = () => {
                             <Box flex="1" minW={0}>
                               <Stack direction={{ base: "column", sm: "row" }} justify="space-between" align={{ base: "stretch", sm: "start" }} gap={2}>
                                 <Box minW={0}>
-                                  <Text fontSize="sm" fontWeight="semibold" color="gray.900">
+                                  <Text className="detector-history-title">
                                     {title}
                                   </Text>
-                                  <Text mt={1} fontSize="xs" color="gray.500" lineClamp={1}>
+                                  <Text className="detector-history-filename" mt={1} lineClamp={1}>
                                     {item.filename}
                                   </Text>
                                 </Box>
@@ -684,17 +636,16 @@ const Demo = () => {
                                   w={{ base: "100%", sm: "auto" }}
                                 >
                                   <Text
-                                    fontSize="xs"
-                                    color="gray.500"
+                                    className="detector-history-date"
                                     whiteSpace={{ base: "normal", sm: "nowrap" }}
                                     textAlign={{ base: "left", sm: "right" }}
                                   >
                                     {formatDateTime(item.createdAt)}
                                   </Text>
                                   <Button
+                                    className="detector-danger-action"
                                     size="xs"
                                     variant="outline"
-                                    colorScheme="red"
                                     onClick={(event) => handleHistoryDelete(event, item.id)}
                                   >
                                     {t("detector.delete")}
@@ -702,11 +653,11 @@ const Demo = () => {
                                 </Stack>
                               </Stack>
 
-                              <Text mt={2} fontSize="sm" color={getConfidenceColor(item.confidence)} fontWeight="semibold">
+                              <Text className="detector-confidence-line" mt={2} color={getConfidenceColor(item.confidence)}>
                                 {t("detector.confidence")}: {(item.confidence * 100).toFixed(1)}%
                               </Text>
 
-                              <Text mt={2} fontSize="sm" color="gray.700" lineHeight="1.5" lineClamp={3}>
+                              <Text className="detector-history-treatment" mt={2} lineClamp={3}>
                                 {itemGuidance.treatment || fallbackGuidance.treatment}
                               </Text>
                             </Box>

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import Demo from './Test';
+import Demo from './app';
 import { saveDetectionHistoryItem } from './detectionHistory';
 import { LanguageProvider } from './i18n';
 import { Provider } from './ui/provider';
