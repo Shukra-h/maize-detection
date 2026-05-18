@@ -20,7 +20,11 @@ Railway is usually the fastest path for a FastAPI + TensorFlow service from this
 ### Frontend (Vercel)
 1. In Vercel project settings, set:
    - `VITE_API_URL=https://your-railway-backend.up.railway.app`
+   - `VITE_SUPABASE_URL=your-supabase-project-url`
+   - `VITE_SUPABASE_ANON_KEY=your-supabase-anon-key`
 2. Redeploy frontend.
+
+The frontend uses React Router for `/detection`. The existing `vercel.json` rewrites all non-file routes to `index.html`, so direct visits to `/detection` should keep working after deployment.
 
 ## Notes
 - `src/api/venv/` is excluded from Vercel uploads via `.vercelignore`.

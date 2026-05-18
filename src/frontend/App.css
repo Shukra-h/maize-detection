@@ -59,6 +59,7 @@
   font: inherit;
   font-weight: 800;
   padding: 0;
+  text-decoration: none;
 }
 
 .detector-brand-button:focus-visible {
@@ -124,6 +125,421 @@
 
 .detector-auth-button--solid:hover {
   background: oklch(36% 0.132 142);
+}
+
+.detector-auth-gate {
+  display: grid;
+  min-height: calc(100vh - 65px);
+  place-items: center;
+  padding: 42px 20px;
+  color: var(--ink);
+  font-family: "Afacad", "Trebuchet MS", sans-serif;
+}
+
+.detector-auth-gate__card {
+  width: min(560px, 100%);
+  padding: clamp(28px, 5vw, 44px);
+  border: 1px solid oklch(84% 0.039 132);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 94% 10%, oklch(88% 0.076 118 / 0.58), transparent 34%),
+    oklch(99% 0.009 125);
+  box-shadow: 0 24px 70px oklch(31% 0.07 135 / 0.13);
+}
+
+.detector-auth-gate__card h1 {
+  max-width: 10ch;
+  margin: 8px 0 14px;
+  color: var(--ink);
+  font-family: "Besley", Georgia, serif;
+  font-size: clamp(2.25rem, 7vw, 4.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.detector-auth-gate__card p {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.detector-auth-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.detector-auth-gate__home {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--green);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.detector-auth-gate__home:hover {
+  text-decoration: underline;
+}
+
+.detector-workspace {
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 12%, oklch(88% 0.078 119 / 0.48), transparent 30%),
+    radial-gradient(circle at 88% 4%, oklch(89% 0.051 211 / 0.38), transparent 28%),
+    linear-gradient(180deg, oklch(98% 0.014 124), var(--page) 58%, oklch(94% 0.032 132));
+  font-family: "Afacad", "Trebuchet MS", sans-serif;
+}
+
+.detector-workspace::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, color-mix(in oklch, var(--green) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(0deg, color-mix(in oklch, var(--green) 8%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, oklch(0% 0 0 / 0.26), transparent 72%);
+}
+
+.detector-shell {
+  position: relative;
+}
+
+.detector-mini-label {
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.detector-grid {
+  align-items: start;
+}
+
+.detector-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--green) 18%, transparent);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, oklch(99% 0.008 125), oklch(97% 0.015 126));
+  box-shadow: 0 18px 52px oklch(31% 0.07 135 / 0.08);
+  animation: detector-panel-enter 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.detector-panel--result {
+  animation-delay: 80ms;
+}
+
+.detector-panel--guidance {
+  animation-delay: 140ms;
+}
+
+.detector-panel--history {
+  animation-delay: 200ms;
+}
+
+.detector-panel::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, var(--green) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(0deg, color-mix(in oklch, var(--green) 5%, transparent) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(180deg, oklch(0% 0 0 / 0.1), transparent 55%);
+}
+
+.detector-panel-title {
+  position: relative;
+  color: var(--ink);
+  font-family: "Besley", Georgia, serif;
+  font-size: clamp(1.02rem, 1.4vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.detector-file-row,
+.detector-action-row,
+.detector-history-heading {
+  position: relative;
+}
+
+.detector-file-name,
+.detector-subtitle,
+.detector-history-count,
+.detector-history-hint,
+.detector-status-note,
+.detector-empty-state,
+.detector-empty-copy {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.detector-history-hint {
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.detector-workspace .detector-primary-action,
+.detector-workspace .detector-secondary-action,
+.detector-workspace .detector-danger-action {
+  min-height: 42px;
+  border-radius: 999px;
+  font-family: "Afacad", "Trebuchet MS", sans-serif;
+  font-weight: 800;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.detector-workspace .detector-primary-action {
+  border: 1px solid var(--green);
+  color: oklch(98% 0.011 130);
+  background: var(--green);
+}
+
+.detector-workspace .detector-primary-action:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: oklch(36% 0.132 142);
+}
+
+.detector-workspace .detector-secondary-action {
+  border: 1px solid color-mix(in oklch, var(--green) 35%, transparent);
+  color: var(--green);
+  background: color-mix(in oklch, var(--paper) 86%, var(--green) 14%);
+}
+
+.detector-workspace .detector-secondary-action:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: oklch(95% 0.031 130);
+}
+
+.detector-workspace .detector-danger-action {
+  min-height: 30px;
+  border: 1px solid oklch(70% 0.108 28);
+  color: oklch(44% 0.12 30);
+  background: oklch(98% 0.015 31);
+}
+
+.detector-specimen-tray {
+  position: relative;
+  border: 1px dashed color-mix(in oklch, var(--green) 38%, transparent);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 40%, oklch(99% 0.008 125), transparent 45%),
+    repeating-linear-gradient(0deg, transparent 0 17px, color-mix(in oklch, var(--green) 8%, transparent) 18px 19px),
+    oklch(96% 0.017 128);
+}
+
+.detector-specimen-tray::before {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  width: 68px;
+  height: 8px;
+  content: "";
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--gold) 76%, transparent);
+}
+
+.detector-specimen-tray--filled {
+  border-style: solid;
+  background: oklch(92% 0.022 129);
+}
+
+.detector-specimen-image {
+  border-radius: 18px;
+}
+
+.detector-empty-state,
+.detector-note,
+.detector-guidance-card,
+.detector-primary-result,
+.detector-probability-row,
+.detector-history-item {
+  position: relative;
+  border: 1px solid color-mix(in oklch, var(--green) 17%, transparent);
+  border-radius: 18px;
+  background: oklch(96% 0.015 126);
+}
+
+.detector-empty-state p,
+.detector-note p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.detector-note {
+  background: color-mix(in oklch, var(--gold) 16%, var(--paper));
+}
+
+.detector-alert {
+  border: 1px solid oklch(78% 0.09 56);
+  background: oklch(97% 0.026 67);
+}
+
+.detector-guidance-card--treatment {
+  background:
+    radial-gradient(circle at 94% 12%, color-mix(in oklch, var(--gold) 28%, transparent), transparent 32%),
+    oklch(98% 0.018 82);
+}
+
+.detector-guidance-card--prevention {
+  background:
+    radial-gradient(circle at 94% 12%, color-mix(in oklch, var(--blue) 18%, transparent), transparent 32%),
+    oklch(97% 0.013 218);
+}
+
+.detector-guidance-copy,
+.detector-result-description,
+.detector-history-treatment {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.detector-primary-result {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 8%, color-mix(in oklch, var(--green-soft) 45%, transparent), transparent 34%),
+    oklch(97% 0.021 128);
+}
+
+.detector-primary-result::after {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  content: "";
+  width: 58px;
+  height: 58px;
+  transform: rotate(-28deg);
+  border-radius: 78% 0 78% 0;
+  opacity: 0.16;
+  background: var(--green);
+}
+
+.detector-result-title {
+  color: var(--ink);
+  font-family: "Besley", Georgia, serif;
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.detector-confidence-line {
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.detector-probability-row {
+  background: color-mix(in oklch, var(--paper) 72%, var(--page) 28%);
+}
+
+.detector-probability-row.is-top {
+  border-color: color-mix(in oklch, var(--green) 42%, transparent);
+  background: color-mix(in oklch, var(--green-soft) 28%, var(--paper));
+}
+
+.detector-probability-label,
+.detector-probability-value {
+  color: var(--ink);
+  font-size: 0.94rem;
+  line-height: 1.32;
+}
+
+.detector-probability-value {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.detector-probability-track {
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--green) 14%, var(--paper));
+}
+
+.detector-probability-fill {
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--blue) 84%, var(--green));
+}
+
+.detector-probability-row.is-top .detector-probability-fill {
+  background: var(--green);
+}
+
+.detector-history-item {
+  background: color-mix(in oklch, var(--paper) 78%, var(--page) 22%);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.detector-history-item:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in oklch, var(--green) 34%, transparent);
+  background: var(--paper);
+}
+
+.detector-history-item:focus-visible {
+  outline: 3px solid color-mix(in oklch, var(--gold) 72%, transparent);
+  outline-offset: 3px;
+}
+
+.detector-history-thumb {
+  border: 1px solid color-mix(in oklch, var(--green) 18%, transparent);
+  border-radius: 14px;
+  background: oklch(93% 0.018 128);
+}
+
+.detector-history-title {
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.detector-history-filename,
+.detector-history-date {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+@keyframes detector-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detector-panel {
+    animation: none;
+  }
+
+  .detector-workspace .detector-primary-action,
+  .detector-workspace .detector-secondary-action,
+  .detector-workspace .detector-danger-action,
+  .detector-history-item {
+    transition: none;
+  }
 }
 
 .landing-hero {
