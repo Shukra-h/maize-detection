@@ -59,6 +59,7 @@
   font: inherit;
   font-weight: 800;
   padding: 0;
+  text-decoration: none;
 }
 
 .detector-brand-button:focus-visible {
@@ -124,6 +125,63 @@
 
 .detector-auth-button--solid:hover {
   background: oklch(36% 0.132 142);
+}
+
+.detector-auth-gate {
+  display: grid;
+  min-height: calc(100vh - 65px);
+  place-items: center;
+  padding: 42px 20px;
+  color: var(--ink);
+  font-family: "Afacad", "Trebuchet MS", sans-serif;
+}
+
+.detector-auth-gate__card {
+  width: min(560px, 100%);
+  padding: clamp(28px, 5vw, 44px);
+  border: 1px solid oklch(84% 0.039 132);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 94% 10%, oklch(88% 0.076 118 / 0.58), transparent 34%),
+    oklch(99% 0.009 125);
+  box-shadow: 0 24px 70px oklch(31% 0.07 135 / 0.13);
+}
+
+.detector-auth-gate__card h1 {
+  max-width: 10ch;
+  margin: 8px 0 14px;
+  color: var(--ink);
+  font-family: "Besley", Georgia, serif;
+  font-size: clamp(2.25rem, 7vw, 4.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.detector-auth-gate__card p {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.detector-auth-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.detector-auth-gate__home {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--green);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.detector-auth-gate__home:hover {
+  text-decoration: underline;
 }
 
 .landing-hero {

@@ -23,6 +23,7 @@ The project has two parts:
 ## Tech stack
 
 - Frontend: React + TypeScript + Vite + Chakra UI
+- Routing: React Router
 - Backend: FastAPI + TensorFlow + Keras
 - Model file: `src/api/best_model.keras`
 - Class order file: `src/api/class_names.json`
@@ -194,6 +195,15 @@ VITE_API_URL=http://127.0.0.1:8000
 
 Then restart the frontend.
 
+The detection workspace is available at `/detection` and requires login. To enable login and signup locally, also add your Supabase frontend keys:
+
+```env
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+Without those keys, the public landing page still loads, but the protected detection route will stay locked.
+
 ## Project structure
 
 ```text
@@ -270,6 +280,44 @@ TensorFlow can take longer to install than other packages. If installation fails
 - Confirm your Python version is compatible
 - Upgrade `pip`
 - Try the install again inside the virtual environment
+
+## Testing
+
+For a beginner-friendly explanation of the test tools, what each test checks,
+and what to do when tests fail, read:
+
+```text
+docs/TESTING_GUIDE.md
+```
+
+Quick commands are below.
+
+### Backend tests
+
+From the repo root:
+
+```bash
+cd src/api
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest
+```
+
+To also run the slower smoke test that loads `best_model.keras`:
+
+```bash
+pytest -m slow
+```
+
+### Frontend tests
+
+From the repo root:
+
+```bash
+cd src/frontend
+npm install
+npm run test
+```
 
 ## API endpoints
 

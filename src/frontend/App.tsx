@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
+import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import AuthControls from './components/AuthControls'
 import AuthModal, { type AuthMode } from './components/AuthModal'
@@ -9,25 +10,142 @@ import Demo from './components/Test'
 import { useI18n } from './components/i18n'
 import { isSupabaseConfigured, supabase } from './components/supabaseClient'
 
-type AppRoute = '/' | '/detection'
+interface SharedAuthProps {
+  authConfigured: boolean
+  authLoading: boolean
+  onLogin: () => void
+  onLogout: () => void
+  onSignup: () => void
+  session: Session | null
+}
 
-function getCurrentRoute(): AppRoute {
-  return window.location.pathname === '/detection' ? '/detection' : '/'
+function LandingRoute({
+  authConfigured,
+  authLoading,
+  onLogin,
+  onLogout,
+  onSignup,
+  session,
+}: SharedAuthProps) {
+  const navigate = useNavigate()
+
+  return (
+    <LandingPage
+      authConfigured={authConfigured}
+      authLoading={authLoading}
+      onLogin={onLogin}
+      onLogout={onLogout}
+      onSignup={onSignup}
+      onStart={() => navigate('/detection')}
+      user={session?.user ?? null}
+    />
+  )
+}
+
+function DetectorNav({
+  authConfigured,
+  authLoading,
+  onLogin,
+  onLogout,
+  onSignup,
+  session,
+}: SharedAuthProps) {
+  const { t } = useI18n()
+
+  return (
+    <nav className="detector-auth-bar" aria-label={t('detector.accountControls')}>
+      <div className="detector-nav__identity">
+        <Link className="detector-brand-button" to="/">
+          {t('app.brand')}
+        </Link>
+        <span className="detector-workspace-tag">{t('app.detectorWorkspace')}</span>
+      </div>
+      <div className="detector-auth-actions">
+        <LanguageToggle variant="detector" />
+        <AuthControls
+          authConfigured={authConfigured}
+          authLoading={authLoading}
+          onLogin={onLogin}
+          onLogout={onLogout}
+          onSignup={onSignup}
+          user={session?.user ?? null}
+          variant="detector"
+        />
+      </div>
+    </nav>
+  )
+}
+
+function DetectionAuthGate({
+  authConfigured,
+  authLoading,
+  onLogin,
+  onSignup,
+}: Pick<SharedAuthProps, 'authConfigured' | 'authLoading' | 'onLogin' | 'onSignup'>) {
+  const { t } = useI18n()
+
+  const title = authLoading
+    ? t('detector.authCheckingTitle')
+    : authConfigured
+      ? t('detector.authRequiredTitle')
+      : t('detector.authMissingTitle')
+
+  const copy = authLoading
+    ? t('detector.authCheckingCopy')
+    : authConfigured
+      ? t('detector.authRequiredCopy')
+      : t('detector.authMissingCopy')
+
+  return (
+    <section className="detector-auth-gate" aria-labelledby="detector-auth-gate-title">
+      <div className="detector-auth-gate__card">
+        <p className="landing-kicker">{t('app.detectorWorkspace')}</p>
+        <h1 id="detector-auth-gate-title">{title}</h1>
+        <p>{copy}</p>
+
+        {!authLoading && authConfigured && (
+          <div className="detector-auth-gate__actions">
+            <button className="landing-primary" type="button" onClick={onLogin}>
+              {t('auth.login')}
+            </button>
+            <button className="detector-auth-button" type="button" onClick={onSignup}>
+              {t('auth.signup')}
+            </button>
+          </div>
+        )}
+
+        <Link className="detector-auth-gate__home" to="/">
+          {t('detector.backHome')}
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+function DetectionRoute(props: SharedAuthProps) {
+  const { authConfigured, authLoading, session, onLogin, onSignup } = props
+
+  return (
+    <div className="detector-page">
+      <DetectorNav {...props} />
+      {authLoading || !authConfigured || !session ? (
+        <DetectionAuthGate
+          authConfigured={authConfigured}
+          authLoading={authLoading}
+          onLogin={onLogin}
+          onSignup={onSignup}
+        />
+      ) : (
+        <Demo />
+      )}
+    </div>
+  )
 }
 
 function App() {
-  const { t } = useI18n()
-  const [route, setRoute] = useState<AppRoute>(() => getCurrentRoute())
   const [session, setSession] = useState<Session | null>(null)
   const [authLoading, setAuthLoading] = useState(isSupabaseConfigured)
   const [authMode, setAuthMode] = useState<AuthMode | null>(null)
-
-  useEffect(() => {
-    const handlePopState = () => setRoute(getCurrentRoute())
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
 
   useEffect(() => {
     if (!supabase) {
@@ -68,13 +186,6 @@ function App() {
     await supabase.auth.signOut()
   }
 
-  const navigate = (nextRoute: AppRoute) => {
-    if (window.location.pathname !== nextRoute) {
-      window.history.pushState({}, '', nextRoute)
-    }
-    setRoute(nextRoute)
-  }
-
   const authModal = authMode ? (
     <AuthModal
       mode={authMode}
@@ -83,48 +194,22 @@ function App() {
     />
   ) : null
 
-  if (route === '/detection') {
-    return (
-      <>
-        <div className="detector-page">
-          <nav className="detector-auth-bar" aria-label={t('detector.accountControls')}>
-            <div className="detector-nav__identity">
-              <button className="detector-brand-button" type="button" onClick={() => navigate('/')}>
-                {t('app.brand')}
-              </button>
-              <span className="detector-workspace-tag">{t('app.detectorWorkspace')}</span>
-            </div>
-            <div className="detector-auth-actions">
-              <LanguageToggle variant="detector" />
-              <AuthControls
-                authConfigured={isSupabaseConfigured}
-                authLoading={authLoading}
-                onLogin={() => setAuthMode('login')}
-                onLogout={handleLogout}
-                onSignup={() => setAuthMode('signup')}
-                user={session?.user ?? null}
-                variant="detector"
-              />
-            </div>
-          </nav>
-          <Demo />
-        </div>
-        {authModal}
-      </>
-    )
+  const sharedAuthProps: SharedAuthProps = {
+    authConfigured: isSupabaseConfigured,
+    authLoading,
+    onLogin: () => setAuthMode('login'),
+    onLogout: handleLogout,
+    onSignup: () => setAuthMode('signup'),
+    session,
   }
 
   return (
     <>
-      <LandingPage
-        authConfigured={isSupabaseConfigured}
-        authLoading={authLoading}
-        onLogin={() => setAuthMode('login')}
-        onLogout={handleLogout}
-        onSignup={() => setAuthMode('signup')}
-        onStart={() => navigate('/detection')}
-        user={session?.user ?? null}
-      />
+      <Routes>
+        <Route path="/" element={<LandingRoute {...sharedAuthProps} />} />
+        <Route path="/detection" element={<DetectionRoute {...sharedAuthProps} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       {authModal}
     </>
   )
