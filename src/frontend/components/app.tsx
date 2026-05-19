@@ -287,6 +287,7 @@ const Demo = () => {
           alignItems="start"
         >
           <VStack
+            className="detector-column detector-column--input"
             gap={{ base: 4, md: 6 }}
             align="stretch"
             display={{ base: "contents", lg: "flex" }}
@@ -446,7 +447,7 @@ const Demo = () => {
             </VStack>
           </VStack>
 
-          <VStack gap={{ base: 4, md: 6 }} align="stretch" display={{ base: "contents", lg: "flex" }}>
+          <VStack className="detector-column detector-column--output" gap={{ base: 4, md: 6 }} align="stretch" display={{ base: "contents", lg: "flex" }}>
             <VStack
               className="detector-panel detector-panel--result"
               align="stretch"

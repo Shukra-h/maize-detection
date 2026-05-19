@@ -72,6 +72,8 @@ describe('app routing and detection guard', () => {
 
     expect(await screen.findByRole('heading', { name: 'Login required' })).toBeInTheDocument();
     expect(screen.getByText('Create an account or log in before using the maize detection workspace.')).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Log in' })).toHaveLength(1);
+    expect(screen.getAllByRole('button', { name: 'Sign up' })).toHaveLength(1);
     expect(screen.queryByRole('button', { name: 'Analyze Image' })).not.toBeInTheDocument();
   });
 

@@ -168,8 +168,16 @@
 .detector-auth-gate__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   gap: 10px;
   margin-top: 24px;
+}
+
+.detector-auth-gate__actions .landing-primary,
+.detector-auth-gate__actions .detector-auth-button {
+  flex: 1 1 150px;
+  width: auto;
+  min-width: 0;
 }
 
 .detector-auth-gate__home {
@@ -187,6 +195,9 @@
 .detector-workspace {
   position: relative;
   isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   color: var(--ink);
   background:
     radial-gradient(circle at 8% 12%, oklch(88% 0.078 119 / 0.48), transparent 30%),
@@ -210,6 +221,9 @@
 
 .detector-shell {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .detector-mini-label {
@@ -223,11 +237,23 @@
 
 .detector-grid {
   align-items: start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.detector-column {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .detector-panel {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid color-mix(in oklch, var(--green) 18%, transparent);
   border-radius: 24px;
   background:
@@ -274,6 +300,9 @@
 .detector-action-row,
 .detector-history-heading {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .detector-file-name,
@@ -334,6 +363,11 @@
 
 .detector-specimen-tray {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: clamp(240px, 42vw, 420px);
+  max-height: 420px;
   border: 1px dashed color-mix(in oklch, var(--green) 38%, transparent);
   border-radius: 22px;
   background:
@@ -370,6 +404,9 @@
 .detector-probability-row,
 .detector-history-item {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid color-mix(in oklch, var(--green) 17%, transparent);
   border-radius: 18px;
   background: oklch(96% 0.015 126);
@@ -501,6 +538,18 @@
   border: 1px solid color-mix(in oklch, var(--green) 18%, transparent);
   border-radius: 14px;
   background: oklch(93% 0.018 128);
+}
+
+@media (max-width: 520px) {
+  .detector-auth-gate__actions {
+    flex-direction: column;
+  }
+
+  .detector-auth-gate__actions .landing-primary,
+  .detector-auth-gate__actions .detector-auth-button {
+    flex-basis: auto;
+    width: 100%;
+  }
 }
 
 .detector-history-title {

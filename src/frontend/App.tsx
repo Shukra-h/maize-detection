@@ -49,7 +49,8 @@ function DetectorNav({
   onLogout,
   onSignup,
   session,
-}: SharedAuthProps) {
+  showAuthControls = true,
+}: SharedAuthProps & { showAuthControls?: boolean }) {
   const { t } = useI18n()
 
   return (
@@ -62,15 +63,17 @@ function DetectorNav({
       </div>
       <div className="detector-auth-actions">
         <LanguageToggle variant="detector" />
-        <AuthControls
-          authConfigured={authConfigured}
-          authLoading={authLoading}
-          onLogin={onLogin}
-          onLogout={onLogout}
-          onSignup={onSignup}
-          user={session?.user ?? null}
-          variant="detector"
-        />
+        {showAuthControls && (
+          <AuthControls
+            authConfigured={authConfigured}
+            authLoading={authLoading}
+            onLogin={onLogin}
+            onLogout={onLogout}
+            onSignup={onSignup}
+            user={session?.user ?? null}
+            variant="detector"
+          />
+        )}
       </div>
     </nav>
   )
@@ -124,11 +127,12 @@ function DetectionAuthGate({
 
 function DetectionRoute(props: SharedAuthProps) {
   const { authConfigured, authLoading, session, onLogin, onSignup } = props
+  const isGateVisible = authLoading || !authConfigured || !session
 
   return (
     <div className="detector-page">
-      <DetectorNav {...props} />
-      {authLoading || !authConfigured || !session ? (
+      <DetectorNav {...props} showAuthControls={!isGateVisible} />
+      {isGateVisible ? (
         <DetectionAuthGate
           authConfigured={authConfigured}
           authLoading={authLoading}
