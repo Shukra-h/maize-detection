@@ -1,14 +1,13 @@
 {
-  "version": 2,
-  "builds": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "cd src/frontend && npm ci --include=dev",
+  "buildCommand": "cd src/frontend && npm run build",
+  "outputDirectory": "src/frontend/dist",
+  "rewrites": [
     {
-      "src": "src/frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
