@@ -26,7 +26,7 @@ import {
   useI18n,
 } from "./i18n";
 
-const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
+const value = import.meta.env.VITE_SOME_KEY|| "";
 const HISTORY_LIMIT = 20;
 
 interface PredictionResult {
