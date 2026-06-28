@@ -7,17 +7,66 @@ export interface PredictionGuidance {
 
 export type PredictionDecision = "accepted" | "likely" | "rejected";
 
+export interface FeedbackAdjustedPrediction {
+  applied?: boolean;
+  raw_prediction?: string;
+  raw_model_prediction?: string;
+  raw_confidence?: number;
+  raw_decision?: PredictionDecision;
+  match_type?: "exact" | "near";
+  corrected_label?: string;
+  adjusted_prediction?: string;
+  adjusted_confidence?: number;
+  adjusted_decision?: PredictionDecision;
+  confidence_strategy?:
+    | "dynamic_consensus"
+    | "baked_low_confidence_class_switch"
+    | "baked_low_confidence_correct_feedback";
+  base_class_probability?: number;
+  support_weight?: number;
+  total_support_weight?: number;
+  consensus?: number;
+  is_correct?: boolean;
+  source_image_hash?: string;
+  distance?: number;
+  low_confidence_class_switch?: boolean;
+  low_confidence_correct_feedback?: boolean;
+  low_confidence_baked_feedback?: boolean;
+  baked_confidence?: number | null;
+  feedback_id?: string;
+  feedback_ids?: string[];
+}
+
+export interface DetectionFeedbackMetadata {
+  submittedAt: string;
+  wasPredictionCorrect: boolean;
+  correctClass?: string;
+  predictedClass: string;
+  modelPrediction?: string;
+  decision?: PredictionDecision;
+  feedbackAdjusted: boolean;
+  trainingConsent?: boolean;
+}
+
 export interface DetectionHistoryRecord {
   id: string;
   createdAt: string;
   filename: string;
   imageBlob: Blob;
+  prediction_id?: string;
+  image_hash?: string;
+  accepted?: boolean;
   prediction: string;
   model_prediction?: string;
   decision?: PredictionDecision;
   confidence: number;
   all_probabilities: Record<string, number>;
   guidance?: PredictionGuidance;
+  feedback_adjusted?: boolean | FeedbackAdjustedPrediction;
+  feedback_adjusted_prediction?: string;
+  feedback_adjusted_confidence?: number;
+  feedback_adjusted_decision?: PredictionDecision;
+  feedback?: DetectionFeedbackMetadata;
 }
 
 const DB_NAME = "maize-detection-db";

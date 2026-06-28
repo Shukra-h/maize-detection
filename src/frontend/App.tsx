@@ -140,7 +140,7 @@ function DetectionRoute(props: SharedAuthProps) {
           onSignup={onSignup}
         />
       ) : (
-        <Demo />
+        <Demo session={session} />
       )}
     </div>
   )

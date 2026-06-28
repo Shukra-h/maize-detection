@@ -26,6 +26,7 @@ vi.mock('./components/supabaseClient', () => ({
 }));
 
 const fakeSession = {
+  access_token: 'route-access-token',
   user: {
     email: 'farmer@example.com',
     user_metadata: {

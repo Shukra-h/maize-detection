@@ -9,13 +9,17 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
+import type { Session } from "@supabase/supabase-js";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import {
   deleteDetectionHistoryItem,
   getDetectionHistory,
   pruneDetectionHistory,
   saveDetectionHistoryItem,
+  type DetectionFeedbackMetadata,
   type DetectionHistoryRecord,
+  type FeedbackAdjustedPrediction,
+  type PredictionDecision,
   type PredictionGuidance,
 } from "./detectionHistory";
 import {
@@ -31,18 +35,41 @@ const HISTORY_LIMIT = 20;
 
 interface PredictionResult {
   success: boolean;
+  accepted?: boolean;
   prediction: string;
+  model_prediction?: string;
+  decision?: PredictionDecision;
   confidence: number;
   all_probabilities: Record<string, number>;
   guidance?: PredictionGuidance;
   filename: string;
+  prediction_id?: string;
+  image_hash?: string;
+  feedback_adjusted?: boolean | FeedbackAdjustedPrediction;
+  feedback_adjusted_prediction?: string;
+  feedback_adjusted_confidence?: number;
+  feedback_adjusted_decision?: PredictionDecision;
 }
 
 interface DetectionHistoryItem extends DetectionHistoryRecord {
   previewUrl: string;
 }
 
+interface DemoProps {
+  session?: Session | null;
+}
+
 type ActiveImageSource = "upload" | "history" | null;
+type FeedbackAnswer = "yes" | "no";
+type FeedbackStatus = "idle" | "submitting" | "submitted" | "submitted-api-only" | "error";
+
+const FEEDBACK_CLASS_OPTIONS = [
+  "Corn_(maize)___healthy",
+  "Corn_(maize)___Common_rust_",
+  "Corn_(maize)___Northern_Leaf_Blight",
+  "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+  "unknown_unclassified",
+];
 
 const formatClassName = (className: string) =>
   className
@@ -66,16 +93,59 @@ const getConfidenceTone = (confidence: number) => {
 const createHistoryId = () =>
   `${Date.now()}-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 
+const getFeedbackAdjustedPayload = (
+  result: Pick<PredictionResult, "feedback_adjusted">,
+) => (typeof result.feedback_adjusted === "object" ? result.feedback_adjusted : undefined);
+
+const isFeedbackAdjustedResult = (
+  result: Pick<PredictionResult, "feedback_adjusted" | "feedback_adjusted_prediction">,
+) => Boolean(
+  result.feedback_adjusted === true ||
+  getFeedbackAdjustedPayload(result)?.applied === true ||
+  result.feedback_adjusted_prediction,
+);
+
+const getDisplayPrediction = (
+  result: Pick<PredictionResult, "prediction" | "feedback_adjusted" | "feedback_adjusted_prediction">,
+) =>
+  getFeedbackAdjustedPayload(result)?.adjusted_prediction ??
+  getFeedbackAdjustedPayload(result)?.corrected_label ??
+  result.feedback_adjusted_prediction ??
+  result.prediction;
+
+const getDisplayConfidence = (
+  result: Pick<PredictionResult, "confidence" | "feedback_adjusted" | "feedback_adjusted_confidence">,
+) =>
+  getFeedbackAdjustedPayload(result)?.adjusted_confidence ??
+  result.feedback_adjusted_confidence ??
+  result.confidence;
+
+const getRawModelPrediction = (
+  result: Pick<PredictionResult, "prediction" | "model_prediction">,
+) => result.model_prediction ?? result.prediction;
+
+const buildAuthHeaders = (session?: Session | null): HeadersInit | undefined =>
+  session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined;
+
 const buildResultFromHistory = (item: DetectionHistoryRecord): PredictionResult => ({
   success: true,
+  accepted: item.accepted,
   prediction: item.prediction,
+  model_prediction: item.model_prediction,
+  decision: item.decision,
   confidence: item.confidence,
   all_probabilities: item.all_probabilities,
   guidance: item.guidance,
   filename: item.filename,
+  prediction_id: item.prediction_id,
+  image_hash: item.image_hash,
+  feedback_adjusted: item.feedback_adjusted,
+  feedback_adjusted_prediction: item.feedback_adjusted_prediction,
+  feedback_adjusted_confidence: item.feedback_adjusted_confidence,
+  feedback_adjusted_decision: item.feedback_adjusted_decision,
 });
 
-const Demo = () => {
+const Demo = ({ session = null }: DemoProps) => {
   const { language, t, formatDateTime } = useI18n();
   const [image, setImage] = useState<File | null>(null);
   const [previewAsset, setPreviewAsset] = useState<Blob | null>(null);
@@ -88,6 +158,12 @@ const Demo = () => {
   const [historyItems, setHistoryItems] = useState<DetectionHistoryItem[]>([]);
   const [historyLoading, setHistoryLoading] = useState(true);
   const [historyError, setHistoryError] = useState<string | null>(null);
+  const [activeHistoryRecord, setActiveHistoryRecord] = useState<DetectionHistoryRecord | null>(null);
+  const [feedbackAnswer, setFeedbackAnswer] = useState<FeedbackAnswer | null>(null);
+  const [feedbackCorrectClass, setFeedbackCorrectClass] = useState("");
+  const [feedbackTrainingConsent, setFeedbackTrainingConsent] = useState(false);
+  const [feedbackStatus, setFeedbackStatus] = useState<FeedbackStatus>("idle");
+  const [feedbackError, setFeedbackError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const historyPreviewUrlsRef = useRef<string[]>([]);
 
@@ -113,6 +189,39 @@ const Demo = () => {
 
     historyPreviewUrlsRef.current = nextItems.map((item) => item.previewUrl);
     setHistoryItems(nextItems);
+  };
+
+  const applyFeedbackMetadata = (feedback?: DetectionFeedbackMetadata) => {
+    setFeedbackAnswer(
+      feedback ? (feedback.wasPredictionCorrect ? "yes" : "no") : null,
+    );
+    setFeedbackCorrectClass(feedback?.correctClass ?? "");
+    setFeedbackTrainingConsent(Boolean(feedback?.trainingConsent));
+    setFeedbackStatus(feedback ? "submitted" : "idle");
+    setFeedbackError(null);
+  };
+
+  const clearFeedbackState = () => {
+    setFeedbackAnswer(null);
+    setFeedbackCorrectClass("");
+    setFeedbackTrainingConsent(false);
+    setFeedbackStatus("idle");
+    setFeedbackError(null);
+  };
+
+  const handleFeedbackAnswerChange = (answer: FeedbackAnswer) => {
+    setFeedbackAnswer(answer);
+    if (answer === "yes") {
+      setFeedbackCorrectClass("");
+    }
+    setFeedbackStatus("idle");
+    setFeedbackError(null);
+  };
+
+  const handleFeedbackClassChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFeedbackCorrectClass(event.target.value);
+    setFeedbackStatus("idle");
+    setFeedbackError(null);
   };
 
   const loadHistory = useEffectEvent(async () => {
@@ -147,6 +256,8 @@ const Demo = () => {
     if (!e.target.files || !e.target.files[0]) return;
 
     const selectedFile = e.target.files[0];
+    e.target.value = "";
+
     if (!selectedFile.type.startsWith("image/")) {
       setError(t("detector.errorInvalidImage"));
       return;
@@ -157,25 +268,39 @@ const Demo = () => {
     setSelectedFileName(selectedFile.name);
     setActiveImageSource("upload");
     setResult(null);
+    setActiveHistoryRecord(null);
+    clearFeedbackState();
     setError(null);
   };
 
   const handleReset = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
     setImage(null);
     setPreviewAsset(null);
     setSelectedFileName(null);
     setActiveImageSource(null);
     setResult(null);
+    setActiveHistoryRecord(null);
+    clearFeedbackState();
     setError(null);
     setLoading(false);
   };
 
   const handleHistoryRestore = (item: DetectionHistoryItem) => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
     setImage(null);
     setPreviewAsset(item.imageBlob);
     setSelectedFileName(item.filename);
     setActiveImageSource("history");
     setResult(buildResultFromHistory(item));
+    setActiveHistoryRecord(item);
+    applyFeedbackMetadata(item.feedback);
     setError(null);
     setLoading(false);
   };
@@ -205,6 +330,8 @@ const Demo = () => {
     setLoading(true);
     setError(null);
     setResult(null);
+    setActiveHistoryRecord(null);
+    clearFeedbackState();
 
     try {
       const formData = new FormData();
@@ -212,6 +339,7 @@ const Demo = () => {
 
       const response = await fetch(`${API_URL}/predict`, {
         method: "POST",
+        headers: buildAuthHeaders(session),
         body: formData,
       });
 
@@ -230,16 +358,28 @@ const Demo = () => {
       setResult(data);
 
       try {
-        await saveDetectionHistoryItem({
+        const historyRecord: DetectionHistoryRecord = {
           id: createHistoryId(),
           createdAt: new Date().toISOString(),
           filename: image.name,
           imageBlob: image,
+          prediction_id: data.prediction_id,
+          image_hash: data.image_hash,
+          accepted: data.accepted,
           prediction: data.prediction,
+          model_prediction: data.model_prediction ?? data.prediction,
+          decision: data.decision,
           confidence: data.confidence,
           all_probabilities: data.all_probabilities,
           guidance: data.guidance,
-        });
+          feedback_adjusted: data.feedback_adjusted,
+          feedback_adjusted_prediction: data.feedback_adjusted_prediction,
+          feedback_adjusted_confidence: data.feedback_adjusted_confidence,
+          feedback_adjusted_decision: data.feedback_adjusted_decision,
+        };
+
+        await saveDetectionHistoryItem(historyRecord);
+        setActiveHistoryRecord(historyRecord);
         await pruneDetectionHistory(HISTORY_LIMIT);
         await loadHistory();
       } catch (historySaveError) {
@@ -257,7 +397,138 @@ const Demo = () => {
     }
   };
 
-  const topLabel = result ? formatClassName(result.prediction) : "";
+  const handleFeedbackSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!result) return;
+
+    if (!feedbackAnswer) {
+      setFeedbackStatus("error");
+      setFeedbackError(t("detector.feedbackErrorChooseAnswer"));
+      return;
+    }
+
+    if (feedbackAnswer === "no" && !feedbackCorrectClass) {
+      setFeedbackStatus("error");
+      setFeedbackError(t("detector.feedbackErrorChooseClass"));
+      return;
+    }
+
+    setFeedbackStatus("submitting");
+    setFeedbackError(null);
+
+    const submittedAt = new Date().toISOString();
+    const wasPredictionCorrect = feedbackAnswer === "yes";
+    const displayPrediction = getDisplayPrediction(result);
+    const correctedClass = wasPredictionCorrect ? displayPrediction : feedbackCorrectClass;
+    const displayConfidence = getDisplayConfidence(result);
+    const modelPrediction = getRawModelPrediction(result);
+    const feedbackAdjusted = isFeedbackAdjustedResult(result);
+    const predictionId = result.prediction_id ?? activeHistoryRecord?.prediction_id;
+    const imageHash = result.image_hash ?? activeHistoryRecord?.image_hash;
+
+    const feedback: DetectionFeedbackMetadata = {
+      submittedAt,
+      wasPredictionCorrect,
+      correctClass: wasPredictionCorrect ? undefined : correctedClass,
+      predictedClass: displayPrediction,
+      modelPrediction,
+      decision: result.decision,
+      feedbackAdjusted,
+      trainingConsent: feedbackTrainingConsent,
+    };
+
+    try {
+      const feedbackFormData = new FormData();
+      feedbackFormData.append("payload", JSON.stringify({
+        prediction_id: predictionId,
+        image_hash: imageHash,
+        corrected_label: correctedClass,
+        is_correct: wasPredictionCorrect,
+        training_consent: feedbackTrainingConsent,
+      }));
+
+      if (feedbackTrainingConsent) {
+        const consentImage = image ?? activeHistoryRecord?.imageBlob ?? previewAsset;
+        if (consentImage) {
+          feedbackFormData.append(
+            "file",
+            consentImage,
+            selectedFileName ?? result.filename ?? activeHistoryRecord?.filename ?? "feedback-image.png",
+          );
+        }
+      }
+
+      const response = await fetch(`${API_URL}/feedback`, {
+        method: "POST",
+        headers: buildAuthHeaders(session),
+        body: feedbackFormData,
+      });
+
+      if (!response.ok) {
+        let message = t("detector.feedbackErrorGeneric");
+        try {
+          const errorData = await response.json();
+          message =
+            typeof errorData.detail === "string"
+              ? errorData.detail
+              : errorData.detail?.message || message;
+        } catch {
+          // Keep fallback message if response isn't JSON.
+        }
+        throw new Error(message);
+      }
+
+      if (!activeHistoryRecord) {
+        setFeedbackStatus("submitted-api-only");
+        return;
+      }
+
+      try {
+        const updatedRecord: DetectionHistoryRecord = {
+          ...activeHistoryRecord,
+          feedback,
+        };
+
+        await saveDetectionHistoryItem(updatedRecord);
+        setActiveHistoryRecord(updatedRecord);
+        await loadHistory();
+        setFeedbackStatus("submitted");
+      } catch (historySaveError) {
+        setFeedbackStatus("submitted-api-only");
+        setHistoryError(
+          historySaveError instanceof Error
+            ? historySaveError.message
+            : t("detector.errorHistorySave"),
+        );
+      }
+    } catch (feedbackSubmitError) {
+      setFeedbackStatus("error");
+      setFeedbackError(
+        feedbackSubmitError instanceof Error
+          ? feedbackSubmitError.message
+          : t("detector.feedbackErrorGeneric"),
+      );
+    }
+  };
+
+  const getFeedbackClassLabel = (className: string) => {
+    if (className === "unknown_unclassified") {
+      return t("detector.feedbackClassUnknown");
+    }
+
+    return translateClassLabel(formatClassName(className), language);
+  };
+
+  const displayPrediction = result ? getDisplayPrediction(result) : "";
+  const displayConfidence = result ? getDisplayConfidence(result) : 0;
+  const feedbackConsentImage = image ?? activeHistoryRecord?.imageBlob ?? previewAsset;
+  const topLabel = result ? formatClassName(displayPrediction) : "";
+  const isFeedbackSubmitDisabled =
+    feedbackStatus === "submitting" ||
+    !feedbackAnswer ||
+    (feedbackAnswer === "no" && !feedbackCorrectClass) ||
+    (feedbackTrainingConsent && !feedbackConsentImage);
   const fallbackGuidance = getFallbackGuidance(language);
   const topDetail = topLabel ? getDiseaseDetails(topLabel, language) : undefined;
   const isHistoryPreview = activeImageSource === "history";
@@ -310,12 +581,17 @@ const Demo = () => {
                   onChange={handleImageChange}
                   style={{ display: "none" }}
                 />
-                <Button
-                  className="detector-secondary-action"
-                  variant="outline"
-                  onClick={() => fileInputRef.current?.click()}
-                  w={{ base: "100%", sm: "auto" }}
-                >
+	                <Button
+	                  className="detector-secondary-action"
+	                  variant="outline"
+	                  onClick={() => {
+	                    if (fileInputRef.current) {
+	                      fileInputRef.current.value = "";
+	                      fileInputRef.current.click();
+	                    }
+	                  }}
+	                  w={{ base: "100%", sm: "auto" }}
+	                >
                   {t("detector.chooseFile")}
                 </Button>
                 <Text className="detector-file-name" lineClamp="1" minW={0}>
@@ -353,7 +629,7 @@ const Demo = () => {
                   className="detector-primary-action"
                   onClick={handlePredict}
                   disabled={!image || loading || isHistoryPreview}
-                  loading={loading}
+                  // loading={loading}
                   loadingText={t("detector.analyzing")}
                   w={{ base: "100%", sm: "auto" }}
                 >
@@ -469,19 +745,19 @@ const Demo = () => {
 
               {result && (
                 <VStack align="stretch" gap={4}>
-                  <Box className={`detector-primary-result detector-confidence--${getConfidenceTone(result.confidence)}`} p={4}>
-                    <Text className="detector-mini-label">
-                      {t("detector.primaryDetection")}
-                    </Text>
+	                  <Box className={`detector-primary-result detector-confidence--${getConfidenceTone(displayConfidence)}`} p={4}>
+	                    <Text className="detector-mini-label">
+	                      {t("detector.primaryDetection")}
+	                    </Text>
                     <Text className="detector-result-title" mt={1}>
                       {guidance?.title || topDetail?.title || translateClassLabel(topLabel, language)}
                     </Text>
                     <Text className="detector-result-description" mt={2}>
                       {guidance?.description || topDetail?.description || t("detector.detectedClass")}
                     </Text>
-                    <Text className="detector-confidence-line" mt={3} color={getConfidenceColor(result.confidence)}>
-                      {t("detector.confidence")}: {(result.confidence * 100).toFixed(1)}%
-                    </Text>
+	                    <Text className="detector-confidence-line" mt={3} color={getConfidenceColor(displayConfidence)}>
+	                      {t("detector.confidence")}: {(displayConfidence * 100).toFixed(1)}%
+	                    </Text>
                   </Box>
 
                   <Box>
@@ -493,7 +769,7 @@ const Demo = () => {
                         .sort(([, a], [, b]) => b - a)
                         .map(([className, probability]) => {
                           const label = translateClassLabel(formatClassName(className), language);
-                          const isTop = className === result.prediction;
+                          const isTop = className === displayPrediction;
                           const width = `${Math.min(100, Math.max(0, probability * 100)).toFixed(1)}%`;
 
                           return (
@@ -522,6 +798,115 @@ const Demo = () => {
                         })}
                     </VStack>
                   </Box>
+
+                  {!isHistoryPreview && (
+                    <Box
+                      as="form"
+                      className="detector-feedback-form"
+                      onSubmit={handleFeedbackSubmit}
+                      p={4}
+                    >
+                      <Text className="detector-feedback-title">
+                        {t("detector.feedbackTitle")}
+                      </Text>
+                      <Text className="detector-feedback-copy" mt={1}>
+                        {t("detector.feedbackCopy")}
+                      </Text>
+
+                      <Box className="detector-feedback-options" mt={3}>
+                        <label className={`detector-feedback-option${feedbackAnswer === "yes" ? " is-selected" : ""}`}>
+                          <input
+                            type="radio"
+                            name="prediction-correct"
+                            value="yes"
+                            checked={feedbackAnswer === "yes"}
+                            onChange={() => handleFeedbackAnswerChange("yes")}
+                          />
+                          <span>{t("detector.feedbackYes")}</span>
+                        </label>
+                        <label className={`detector-feedback-option${feedbackAnswer === "no" ? " is-selected" : ""}`}>
+                          <input
+                            type="radio"
+                            name="prediction-correct"
+                            value="no"
+                            checked={feedbackAnswer === "no"}
+                            onChange={() => handleFeedbackAnswerChange("no")}
+                          />
+                          <span>{t("detector.feedbackNo")}</span>
+                        </label>
+                      </Box>
+
+                      {feedbackAnswer === "no" && (
+                        <Box mt={3}>
+                          <label className="detector-feedback-label" htmlFor="feedback-correct-class">
+                            {t("detector.feedbackCorrectClassLabel")}
+                          </label>
+                          <select
+                            id="feedback-correct-class"
+                            className="detector-feedback-select"
+                            value={feedbackCorrectClass}
+                            onChange={handleFeedbackClassChange}
+                          >
+                            <option value="">
+                              {t("detector.feedbackClassPlaceholder")}
+                            </option>
+                            {FEEDBACK_CLASS_OPTIONS.map((className) => (
+                              <option key={className} value={className}>
+                                {getFeedbackClassLabel(className)}
+                              </option>
+                            ))}
+                          </select>
+                        </Box>
+                      )}
+
+                      <Box mt={3}>
+                        <label className={`detector-feedback-consent${feedbackTrainingConsent ? " is-selected" : ""}`}>
+                          <input
+                            type="checkbox"
+                            checked={feedbackTrainingConsent}
+                            onChange={(event) => {
+                              setFeedbackTrainingConsent(event.target.checked);
+                              setFeedbackStatus("idle");
+                              setFeedbackError(null);
+                            }}
+                          />
+                          <span>{t("detector.feedbackTrainingConsent")}</span>
+                        </label>
+                        <Text className="detector-feedback-consent-copy" mt={2}>
+                          {t("detector.feedbackTrainingConsentCopy")}
+                        </Text>
+                      </Box>
+
+                      <Button
+                        className="detector-secondary-action"
+                        type="submit"
+                        loading={feedbackStatus === "submitting"}
+                        loadingText={t("detector.feedbackSubmitting")}
+                        disabled={isFeedbackSubmitDisabled}
+                        mt={3}
+                      >
+                        {t("detector.feedbackSubmit")}
+                      </Button>
+
+                      {feedbackStatus === "submitted" && (
+                        <Box className="detector-feedback-status" data-status="success" mt={3}>
+                          <Text>{t("detector.feedbackSaved")}</Text>
+                        </Box>
+                      )}
+
+                      {feedbackStatus === "submitted-api-only" && (
+                        <Box className="detector-feedback-status" data-status="warning" mt={3}>
+                          <Text>{t("detector.feedbackApiOnly")}</Text>
+                        </Box>
+                      )}
+
+                      {feedbackStatus === "error" && feedbackError && (
+                        <Box className="detector-feedback-status" data-status="error" mt={3}>
+                          <Text>{feedbackError}</Text>
+                        </Box>
+                      )}
+                    </Box>
+                  )}
                 </VStack>
               )}
             </VStack>
@@ -579,9 +964,11 @@ const Demo = () => {
                   pr={historyItems.length > 3 ? { base: 2, md: 4 } : 0}
                 >
                   <VStack align="stretch" gap={3}>
-                    {historyItems.map((item) => {
-                      const itemGuidance = translateGuidance(item.guidance, item.prediction, language);
-                      const title = itemGuidance.title || translateClassLabel(formatClassName(item.prediction), language);
+	                    {historyItems.map((item) => {
+	                      const itemPrediction = getDisplayPrediction(item);
+	                      const itemConfidence = getDisplayConfidence(item);
+	                      const itemGuidance = translateGuidance(item.guidance, itemPrediction, language);
+                      const title = itemGuidance.title || translateClassLabel(formatClassName(itemPrediction), language);
 
                       return (
                         <Box
@@ -654,13 +1041,23 @@ const Demo = () => {
                                 </Stack>
                               </Stack>
 
-                              <Text className="detector-confidence-line" mt={2} color={getConfidenceColor(item.confidence)}>
-                                {t("detector.confidence")}: {(item.confidence * 100).toFixed(1)}%
-                              </Text>
+	                              <Text className="detector-confidence-line" mt={2} color={getConfidenceColor(itemConfidence)}>
+	                                {t("detector.confidence")}: {(itemConfidence * 100).toFixed(1)}%
+	                              </Text>
 
                               <Text className="detector-history-treatment" mt={2} lineClamp={3}>
                                 {itemGuidance.treatment || fallbackGuidance.treatment}
                               </Text>
+
+                              {item.feedback && (
+                                <Text className="detector-history-feedback" mt={2}>
+                                  {item.feedback.wasPredictionCorrect
+                                    ? t("detector.feedbackHistoryCorrect")
+                                    : t("detector.feedbackHistoryCorrection", {
+                                        class: getFeedbackClassLabel(item.feedback.correctClass ?? "unknown_unclassified"),
+                                      })}
+                                </Text>
+                              )}
                             </Box>
                           </Stack>
                         </Box>

@@ -11,3 +11,4 @@ pillow==11.0.0
 
 # CORS
 python-dotenv==1.0.1
+supabase>=2,<3

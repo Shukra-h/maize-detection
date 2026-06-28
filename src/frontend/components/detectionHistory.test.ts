@@ -70,6 +70,38 @@ describe('detection history storage', () => {
     expect(records.map((record) => record.id)).toEqual(['keep']);
   });
 
+  it('round-trips feedback-corrected prediction metadata', async () => {
+    await saveDetectionHistoryItem(makeRecord('adjusted', '2026-05-18T10:00:00.000Z', {
+      feedback_adjusted: {
+        applied: true,
+        raw_prediction: 'Corn_(maize)___Common_rust_',
+        raw_model_prediction: 'Corn_(maize)___Common_rust_',
+        raw_confidence: 0.62,
+        match_type: 'exact',
+        corrected_label: 'Corn_(maize)___healthy',
+        adjusted_prediction: 'Corn_(maize)___healthy',
+        adjusted_confidence: 0.7,
+        adjusted_decision: 'accepted',
+        base_class_probability: 0.62,
+        support_weight: 1,
+        total_support_weight: 1,
+        consensus: 1,
+        feedback_ids: ['feedback-a'],
+      },
+    }));
+
+    const records = await getDetectionHistory();
+
+    expect(records[0].feedback_adjusted).toMatchObject({
+      applied: true,
+      adjusted_prediction: 'Corn_(maize)___healthy',
+      adjusted_confidence: 0.7,
+      base_class_probability: 0.62,
+      support_weight: 1,
+      consensus: 1,
+    });
+  });
+
   it('prunes older records beyond the requested limit', async () => {
     await saveDetectionHistoryItem(makeRecord('oldest', '2026-05-18T07:00:00.000Z'));
     await saveDetectionHistoryItem(makeRecord('middle', '2026-05-18T08:00:00.000Z'));
